@@ -24,7 +24,7 @@ JdbcTemplate stmt;
 	public int insertUser(UserBean userBean) {
 		// TODO Auto-generated method stub
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		String insertSql = "insert into users (email,password,firstname,lastname,gender,roleid) values(?,?,?,?,?,?)";
+		String insertSql = "insert into users (email,password,firstname,lastname,gender,roleid,status,statusreason,otp) values(?,?,?,?,?,?,?,?,?)";
 		
 		stmt.update(new PreparedStatementCreator() {
 
@@ -55,11 +55,14 @@ JdbcTemplate stmt;
 	public void addDoctorProfile(DoctorProfileBean doctorProfileBean) {
 		UserBean userBean = new UserBean();
 		userBean.setEmail(doctorProfileBean.getEmail());
+		userBean.setEmail(doctorProfileBean.getPassword());
 		userBean.setFirstName(doctorProfileBean.getFirstName());
 		userBean.setLastName(doctorProfileBean.getLastName());
 		userBean.setGender(doctorProfileBean.getGender());
 		userBean.setRoleId(doctorProfileBean.getRoleId());
 		userBean.setStatus(doctorProfileBean.getStatus());
+		userBean.setStatusReason(doctorProfileBean.getStatusReason());
+		userBean.setOtp(doctorProfileBean.getOtp());
 		
 		int userId  = insertUser(userBean);
 		doctorProfileBean.setUserId(userId);
@@ -67,6 +70,7 @@ JdbcTemplate stmt;
 				"insert into doctorprofile (userid,qualification,specialization,experience,profilepic,about,registrationno) values "
 						+ "(?,?,?,?,?,?,?)",
 				doctorProfileBean.getUserId(), doctorProfileBean.getQualification(),
+				doctorProfileBean.getSpecialization(),
 				doctorProfileBean.getExperience_in_year(), doctorProfileBean.getProfile_pic(),
 				doctorProfileBean.getAbout(), doctorProfileBean.getRegistrationNo());
 	}

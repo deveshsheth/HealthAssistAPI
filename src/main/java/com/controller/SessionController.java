@@ -52,6 +52,7 @@ public class SessionController {
 		doctorProfileBean.setStatus(UserBean.KYC_DOCTOR);
 		doctorProfileBean.setStatusReason("Your KYS is pending Our Team Will Contact You Soon..");	
 		mailerService.sendDoctorRegisterMail(doctorProfileBean);
+		signupDao.addDoctorProfile(doctorProfileBean);
 		
 		
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
