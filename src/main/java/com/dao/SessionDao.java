@@ -55,7 +55,7 @@ JdbcTemplate stmt;
 	public void addDoctorProfile(DoctorProfileBean doctorProfileBean) {
 		UserBean userBean = new UserBean();
 		userBean.setEmail(doctorProfileBean.getEmail());
-		userBean.setEmail(doctorProfileBean.getPassword());
+		userBean.setPassword(doctorProfileBean.getPassword());
 		userBean.setFirstName(doctorProfileBean.getFirstName());
 		userBean.setLastName(doctorProfileBean.getLastName());
 		userBean.setGender(doctorProfileBean.getGender());
