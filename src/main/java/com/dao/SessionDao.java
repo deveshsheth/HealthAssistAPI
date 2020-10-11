@@ -41,8 +41,6 @@ JdbcTemplate stmt;
 				pstmt.setInt(7,userBean.getStatus());
 				pstmt.setString(8,userBean.getStatusReason());
 				pstmt.setString(9,userBean.getOtp());
-
-
 				return pstmt;
 			}
 		}, keyHolder);
@@ -62,13 +60,11 @@ JdbcTemplate stmt;
 		userBean.setRoleId(doctorProfileBean.getRoleId());
 		userBean.setStatus(doctorProfileBean.getStatus());
 		userBean.setStatusReason(doctorProfileBean.getStatusReason());
-		userBean.setOtp(doctorProfileBean.getOtp());
 		
 		int userId  = insertUser(userBean);
 		doctorProfileBean.setUserId(userId);
 		stmt.update(
-				"insert into doctorprofile (userid,qualification,specialization,experience,profilepic,about,registrationno) values "
-						+ "(?,?,?,?,?,?,?)",
+				"insert into doctorprofile (userid,qualification,specialization,experience,profilepic,about,registrationno) values (?,?,?,?,?,?,?)",
 				doctorProfileBean.getUserId(), doctorProfileBean.getQualification(),
 				doctorProfileBean.getSpecialization(),
 				doctorProfileBean.getExperience_in_year(), doctorProfileBean.getProfile_pic(),

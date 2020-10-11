@@ -48,7 +48,6 @@ public class SessionController {
 	
 	@PostMapping("/doctorsignup")
 	public ResponseBean<UserBean> doctorSignup(@RequestBody DoctorProfileBean doctorProfileBean) {
-		doctorProfileBean.setOtp(OtpService.generateOtp());
 		doctorProfileBean.setStatus(UserBean.KYC_DOCTOR);
 		doctorProfileBean.setStatusReason("Your KYS is pending Our Team Will Contact You Soon..");	
 		mailerService.sendDoctorRegisterMail(doctorProfileBean);
