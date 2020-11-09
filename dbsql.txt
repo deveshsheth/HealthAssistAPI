@@ -1,0 +1,112 @@
+=====Role=======
+InsertQuery :-
+	stmt.update("insert into role (rolename) values (?)",roleBean.getRoleName());
+Example:-
+	roleid:1
+	roleName:Doctor
+	
+=====Users=====
+InsertQuery :-
+	insert into users (email,password,firstname,lastname,gender,roleid,status,statusreason,otp) values(?,?,?,?,?,?,?,?,?)
+Example:-
+	email:dev@gmail.com
+	password:dev345
+	firstname:Dev
+	lastname:Shah
+	gender:Male
+	roleid:1
+	status:isActive
+	statusreason:Your KYS is pending Our Team Will Contact You Soon..
+	otp:df234
+	
+===Doctor====
+InsertQuery
+	insert into doctorprofile (userid,qualification,specialization,experience,profilepic,about,registrationno) values (?,?,?,?,?,?,?)
+Example:
+	userid:1
+	qualification:abc
+	specialization:xyz
+	experience:5yrs
+	profilpic:null
+	about:Hello
+	registrationno:123ABC
+
+=====CLinic=====
+InsertQuery
+	insert into clinic (clinicname,timing,address,phoneno,rating,about,lat,log,cityid,stateid,pincode) values(?,?,?,?,?,?,?,?,?,?,?)
+Example:
+	clinicname:Civil Hospital
+	timing:Monday to Saturday = 9:00am-10:00pm,Sunday = 9:00am-1:00pm,BreakTime = 2:00pm-4:00pm
+	address:D Block Asarwa, Haripura, Office of the Medical Superintendent Civil Hospital Ahmedabad
+	phoneno:9856478562
+	rating:4.5
+	about:Civil Hospital is the largest and one of the best health care facilities.
+	lat:23.053967
+	log:72.603844
+	cityid:263
+	stateid:12
+	pincode:380016
+	
+===Cities====
+InsertQuery
+	insert into cities(cityname,stateid) values(?,?)
+Example:
+	cityname:Ahemedabad
+	stateid:1
+	
+====States====
+InsertQuery
+	insert into cities(statename) values(?)
+Example:
+	statename:Gujarat
+	
+===DoctClinic====
+InsertQuery
+	insert into doct_clinic (docid,clinicid) values (?,?)
+Example:
+	docid:1
+	clinicid:1
+
+===Pathology====
+InsertQuery
+	insert into pathology(pathologyname,timing,address,phoneno,rating,about,lat,log,cityid,pincode) values(?,?,?,?,?,?,?,?,?,?)
+Example:
+	pathologyname:Green Cross
+  	timing:Monday to Saturday -> 8:00am-9:00pm,Sunday -> 10:00am-1:00pm
+  	address:101-103, Mahavir Chamber, Ram Nagar Chowk, Sabarmati
+  	phoneno:9785694201
+  	rating:4.0
+ 	about:hello greencross
+  	lat:32.9874
+ 	log:22.7748
+  	cityid":263
+  	pincode":380005
+  	
+=====UserPathology====
+InsertQuery
+	insert into user_pathology(userid,pathologyid) values(?,?)
+Example:
+	userid:2
+	pathologyid:1
+	
+====Pharmacy=====
+InsertQuery
+	insert into pharmacy(pharmacyname,timing,address,phoneno,rating,about,lat,log,cityid,pincode) values(?,?,?,?,?,?,?,?,?,?)
+Example:
+	pharmacyname:Apollo Pharmacy
+  	timing:Monday to Sunday -> 7:00am-11:00pm
+  	address:Elegance, Shop No 16, Aaron, New CG Rd, Chandkheda
+  	phoneno:07600041631
+  	rating:4.0
+  	about:Apollo Pharmacy is a part of Apollo Hospitals - Asia's largest healthcare group.
+  	lat:32.9874
+  	log":22.7748
+  	cityid:263
+  	pincode:382424
+	
+===UserPharmacy====
+InserQuery
+	insert into user_pharmacy(userid,pharmacyid) values(?,?)
+Example:
+	userid:3
+	pharmacyid:1

@@ -65,7 +65,7 @@ public class SessionController {
 	
 	
 	@GetMapping("/listUser")
-	public ResponseBean<java.util.List<UserBean>> listRole()
+	public ResponseBean<java.util.List<UserBean>> listUser()
 	{
 		ResponseBean<java.util.List<UserBean>> response = new ResponseBean<>();
 
