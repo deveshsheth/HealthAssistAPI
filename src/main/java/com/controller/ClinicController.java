@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.ClinicBean;
 import com.bean.ResponseBean;
+import com.bean.SearchClinicBean;
 import com.dao.ClinicDao;
 
 @RestController
@@ -60,4 +61,17 @@ public class ClinicController {
 		response.setMsg("Clinic Updated Successfully..!!");
 		return response;
 	}
+	
+	@GetMapping("/searchClinic")
+	public ResponseBean<ClinicBean> Login(@RequestBody SearchClinicBean searchClinicBean){
+		ClinicBean searchClinic = null;
+		ResponseBean<ClinicBean> response = new ResponseBean<>();
+		searchClinic = clinicDao.login(searchClinicBean.getClinicname());
+		response.setData(searchClinic);
+		response.setMsg("Clinic has been search..!!");
+		 response.setStatus(200);
+		 
+		 return response;
+	}
+	
 }

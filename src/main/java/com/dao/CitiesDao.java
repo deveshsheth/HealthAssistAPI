@@ -33,7 +33,7 @@ public class CitiesDao {
 
 	public void updateCities(CitiesBean cityBean) {
 		// TODO Auto-generated method stub
-		stmt.update("update cities set cityname=?,stateid=? where cityid=?",cityBean.getCityname(),cityBean.getStateid());
+		stmt.update("update cities set cityname=?,stateid=? where cityid=?",cityBean.getCityname(),cityBean.getStateid(),cityBean.getCityid());
 	}
 	
 	

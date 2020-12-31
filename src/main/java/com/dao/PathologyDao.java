@@ -39,8 +39,7 @@ public class PathologyDao {
 
 	public void updatePathology(PathologyBean pathologyBean) {
 		// TODO Auto-generated method stub
-		stmt.update("update pathology set pathologyname=?,timing=?,address=?,phoneno=?,rating=?,about=?,lat=?,log=?,cityid=?,pincode=? where pathologyid=?",
-				
+		stmt.update("update pathology set pathologyname=?,timing=?,address=?,phoneno=?,rating=?,about=?,lat=?,log=?,cityid=?,pincode=? where pathologyid=?",				
 				pathologyBean.getPathologyname(),pathologyBean.getTiming(),pathologyBean.getAddress(),pathologyBean.getPhoneno(),pathologyBean.getRating(),
 				pathologyBean.getAbout(),pathologyBean.getLat(),pathologyBean.getLog(),pathologyBean.getCityid(),pathologyBean.getPincode(),pathologyBean.getPathologyid());
 		

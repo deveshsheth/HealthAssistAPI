@@ -2,9 +2,9 @@ package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.bean.ResponseBean;
 import com.bean.userPathologyBean;
@@ -23,7 +23,15 @@ public class userPathologyController {
 		response.setData(userPathologyBean);
 		response.setMsg("User Pathology Added Successfully...!!");
 		response.setStatus(200);
-		
+		return response;
+	}
+	
+	@PutMapping("/updateuserPathology")
+	public ResponseBean<userPathologyBean> updateUserPathology(@RequestBody userPathologyBean userPathologyBean){
+		userPathologyDao.updateUserPathology(userPathologyBean);
+		ResponseBean<userPathologyBean> response = new ResponseBean<>();
+		response.setData(userPathologyBean);
+		response.setMsg("User Pathology Updated Successfully..!!");
 		return response;
 	}
 }

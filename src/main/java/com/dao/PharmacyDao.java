@@ -36,7 +36,7 @@ public class PharmacyDao {
 
 	public void updatePharmacy(PharmacyBean pharmacyBean) {
 		// TODO Auto-generated method stub
-stmt.update("update pharmacy set pharmacyname=?,timing=?,address=?,phoneno=?,rating=?,about=?,lat=?,log=?,cityid=?,pincode=? where pharmacyid=?",
+		stmt.update("update pharmacy set pharmacyname=?,timing=?,address=?,phoneno=?,rating=?,about=?,lat=?,log=?,cityid=?,pincode=? where pharmacyid=?",
 		pharmacyBean.getPharmacyname(),pharmacyBean.getTiming(),pharmacyBean.getAddress(),pharmacyBean.getPhoneno(),pharmacyBean.getRating(),
 		pharmacyBean.getAbout(),pharmacyBean.getLat(),pharmacyBean.getLog(),pharmacyBean.getCityid(),pharmacyBean.getPincode(),pharmacyBean.getPharmacyid());
 		

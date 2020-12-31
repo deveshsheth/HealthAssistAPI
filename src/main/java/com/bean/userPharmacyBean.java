@@ -1,6 +1,6 @@
 package com.bean;
 
-public class userPharmacyBean {
+public class userPharmacyBean  {
 
 	int userpharmacyid;
 	int userid;

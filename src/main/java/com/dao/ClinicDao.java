@@ -43,4 +43,13 @@ public class ClinicDao {
 				clinicBean.getStateid(),clinicBean.getPincode(),clinicBean.getClinicid());
 	}
 
+	public ClinicBean login(Object clinicname) {
+		// TODO Auto-generated method stub
+		ClinicBean clinicBean = null;
+		clinicBean =stmt.queryForObject("select * from clinic where clinicname=?",
+			new Object[] {clinicname}, BeanPropertyRowMapper.newInstance(ClinicBean.class));
+		
+		return clinicBean;
+	}
+
 }

@@ -14,6 +14,17 @@ public class DoctClinicDao {
 	public void addDoctClinic(DoctClinicBean doctclinicBean) {
 		// TODO Auto-generated method stub
 		
-		stmt.update("insert into doct_clinic (docid,clinicid) values (?,?)",doctclinicBean.getDocid(),doctclinicBean.getClinicid());
+		stmt.update("insert into doct_clinic(docid,clinicid,monday,tuesday,wednesday,thrusday,friday,saturday,sunday,threshold) values (?,?,?,?,?,?,?,?,?,?)",
+				doctclinicBean.getDocid(),doctclinicBean.getClinicid(),doctclinicBean.getMonday(),doctclinicBean.getTuesday(),doctclinicBean.getWednesday(),
+				doctclinicBean.getThrusday(),doctclinicBean.getFriday(),doctclinicBean.getSaturday(),doctclinicBean.getSunday(),doctclinicBean.getThreshold());
+	}
+
+	public void updateDoctClinic(DoctClinicBean doctclinicBean) {
+		// TODO Auto-generated method stub
+		
+		stmt.update("update doct_clinic set docid=?,clinicid=?,monday=?,tuesday=?,wednesday=?,thrusday=?,friday=?,saturday=?,sunday=?,threshold=? where doctclinicid=?", 
+				doctclinicBean.getDocid(),doctclinicBean.getClinicid(),doctclinicBean.getMonday(),doctclinicBean.getTuesday(),doctclinicBean.getWednesday(),
+				doctclinicBean.getThrusday(),doctclinicBean.getFriday(),doctclinicBean.getSaturday(),doctclinicBean.getSunday(),doctclinicBean.getThreshold(),
+				doctclinicBean.getDoctclinicid());
 	}
 }

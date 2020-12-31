@@ -19,4 +19,10 @@ public class userPharmacyDao {
 		
 	}
 
+
+	public void updateUserPharmacy(userPharmacyBean userPharmacyBean) {
+		// TODO Auto-generated method stub
+		stmt.update("update user_pharmacy set userid=?,pharmacyid=? where userpharmacyid=?", userPharmacyBean.getUserid(),userPharmacyBean.getPharmacyid(),userPharmacyBean.getUserpharmacyid());
+	}
+
 }

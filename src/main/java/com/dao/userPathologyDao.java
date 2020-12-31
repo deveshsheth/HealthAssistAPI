@@ -17,4 +17,9 @@ public class userPathologyDao {
 				userPathologyBean.getUserid(),userPathologyBean.getPathologyid());
 	}
 
+	public void updateUserPathology(userPathologyBean userPathologyBean) {
+		// TODO Auto-generated method stub
+		stmt.update("update user_pathology set userid=?,pathologyid=? where userpathologyid=?", userPathologyBean.getUserid(),userPathologyBean.getPathologyid(),userPathologyBean.getUserpathologyid());
+	}
+
 }
