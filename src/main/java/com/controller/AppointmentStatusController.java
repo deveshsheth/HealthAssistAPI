@@ -1,7 +1,7 @@
 package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +12,7 @@ import com.bean.ResponseBean;
 import com.dao.AppointmentStatusDao;
 
 @RestController
+@CrossOrigin
 public class AppointmentStatusController {
 	
 	@Autowired

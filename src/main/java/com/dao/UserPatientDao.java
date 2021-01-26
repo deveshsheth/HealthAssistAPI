@@ -19,7 +19,6 @@ public class UserPatientDao {
 
 	public void updateUserPatient(UserPatientBean userpatientBean) {
 		// TODO Auto-generated method stub
-		
 		stmt.update("update user_patient set userid=?,patientid=? where userpatientid=?", userpatientBean.getUserid(),userpatientBean.getPatientid(),userpatientBean.getUserpatientid());
 		
 	}

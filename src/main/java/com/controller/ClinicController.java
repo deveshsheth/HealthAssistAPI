@@ -1,6 +1,7 @@
 package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,10 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.ClinicBean;
 import com.bean.ResponseBean;
-import com.bean.SearchClinicBean;
+//import com.bean.SearchClinicBean;
 import com.dao.ClinicDao;
 
 @RestController
+@CrossOrigin
 public class ClinicController {
 
 	@Autowired
@@ -62,16 +64,18 @@ public class ClinicController {
 		return response;
 	}
 	
-	@GetMapping("/searchClinic")
-	public ResponseBean<ClinicBean> Login(@RequestBody SearchClinicBean searchClinicBean){
-		ClinicBean searchClinic = null;
-		ResponseBean<ClinicBean> response = new ResponseBean<>();
-		searchClinic = clinicDao.login(searchClinicBean.getClinicname());
-		response.setData(searchClinic);
-		response.setMsg("Clinic has been search..!!");
-		 response.setStatus(200);
-		 
-		 return response;
-	}
+//	@GetMapping("/searchClinic")
+//	public ResponseBean<java.util.List<ClinicBean>> searchClinic(@RequestBody String searchclinic)
+//	{
+//		ResponseBean<java.util.List<ClinicBean>> response = new ResponseBean<>();
+//		
+//		java.util.List<ClinicBean> clinicBean = clinicDao.searchClinic(searchclinic);
+//		response.setData(clinicBean);
+//		response.setMsg("Search Clinic List Display..!!!!");
+//		response.setStatus(201);
+//		return response;
+//	}
+	
+	
 	
 }
