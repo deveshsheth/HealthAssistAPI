@@ -78,14 +78,14 @@ public class SessionController {
 		return response;
 	}
 	
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public ResponseBean<UserBean> Login(@RequestBody LoginBean loginBean){
 		UserBean signup = null;
 		ResponseBean<UserBean> response = new ResponseBean<>();
 		signup = signupDao.login(loginBean.getEmail(),loginBean.getPassword());
 		response.setData(signup);
-		response.setMsg("user login");
-		 response.setStatus(200);
+		response.setMsg("user login....!!");
+		response.setStatus(200);
 		 
 		 return response;
 	}
