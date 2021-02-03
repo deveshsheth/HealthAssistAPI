@@ -117,7 +117,7 @@ public class SessionController {
 		return responseBean;
 	}
 	
-	@PostMapping("resetpassword")
+	@GetMapping("resetpassword")
 	public ResponseBean<UserBean> sendOtpForResetPassword(@RequestParam("email") String email) {
 
 		 UserBean userBean = signupDao.getUserByEmail(email);
