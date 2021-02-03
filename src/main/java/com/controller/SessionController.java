@@ -138,7 +138,7 @@ public class SessionController {
 			mailerService.sendOtpForForgetPassword(userBean);
 			
 			responseBean.setMsg("Please Check Email for OTP");
-			responseBean.setStatus(201);
+			responseBean.setStatus(200);
 
 		}
 
