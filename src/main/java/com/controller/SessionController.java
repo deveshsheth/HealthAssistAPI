@@ -104,7 +104,7 @@ public class SessionController {
 
 	}
 	
-	@PutMapping("updateSignup")
+	@PutMapping("/updateSignup")
 	public ResponseBean<UserBean> updateSignup(@RequestBody UserBean signupBean) {
 
 		signupDao.updateSignup(signupBean);
@@ -119,7 +119,7 @@ public class SessionController {
 	
 	@GetMapping("resetpassword")
 	public ResponseBean<UserBean> sendOtpForResetPassword(@RequestParam("email") String email) {
-
+		 System.out.println("reset password call...");
 		 UserBean userBean = signupDao.getUserByEmail(email);
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
 		
@@ -127,18 +127,18 @@ public class SessionController {
 		
 		if (userBean == null) {
 			
-			
 			responseBean.setMsg("Invalid Email Address");
 			responseBean.setStatus(201);
 
 		} else {
+			
 			String otp = OtpService.generateOtp();
 			userBean.setOtp(otp);
 			otpDao.updateOtp(email, otp);
 			mailerService.sendOtpForForgetPassword(userBean);
 			
 			responseBean.setMsg("Please Check Email for OTP");
-			responseBean.setStatus(200);
+			responseBean.setStatus(201);
 
 		}
 
