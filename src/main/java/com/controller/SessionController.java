@@ -20,42 +20,41 @@ import com.dao.OtpDao;
 import com.dao.SessionDao;
 import com.services.MailerService;
 
+@CrossOrigin(origins = "*")
 @RestController
-@CrossOrigin
 public class SessionController {
 	@Autowired
 	SessionDao signupDao;
-	
+
 	@Autowired
 	OtpDao otpDao;
-	
+
 	@Autowired
 	com.services.OtpService OtpService;
-	
+
 	@Autowired
 	MailerService mailerService;
-	 
+
 	@PostMapping("/Signup")
-	public ResponseBean<UserBean> insertUser(@RequestBody UserBean userBean){
+	public ResponseBean<UserBean> insertUser(@RequestBody UserBean userBean) {
 		userBean.setOtp(OtpService.generateOtp());
 		mailerService.sendOtpForUserVerification(userBean);
 		signupDao.insertUser(userBean);
 		ResponseBean<UserBean> response = new ResponseBean<>();
-		
+
 		response.setData(userBean);
 		response.setMsg("user signup successfully....!!");
 		response.setStatus(200);
 		return response;
 	}
-	
+
 	@PostMapping("/doctorsignup")
 	public ResponseBean<UserBean> doctorSignup(@RequestBody DoctorProfileBean doctorProfileBean) {
 		doctorProfileBean.setStatus(UserBean.KYC_DOCTOR);
-		doctorProfileBean.setStatusReason("Your KYS is pending Our Team Will Contact You Soon..");	
+		doctorProfileBean.setStatusReason("Your KYS is pending Our Team Will Contact You Soon..");
 		mailerService.sendDoctorRegisterMail(doctorProfileBean);
 		signupDao.addDoctorProfile(doctorProfileBean);
-		
-		
+
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
 
 		responseBean.setData(doctorProfileBean);
@@ -64,11 +63,9 @@ public class SessionController {
 
 		return responseBean;
 	}
-	
-	
+
 	@GetMapping("/listUser")
-	public ResponseBean<java.util.List<UserBean>> listUser()
-	{
+	public ResponseBean<java.util.List<UserBean>> listUser() {
 		ResponseBean<java.util.List<UserBean>> response = new ResponseBean<>();
 
 		java.util.List<UserBean> userBean = signupDao.listUser();
@@ -77,19 +74,19 @@ public class SessionController {
 		response.setStatus(201);
 		return response;
 	}
-	
+
 	@PostMapping("/login")
-	public ResponseBean<UserBean> Login(@RequestBody LoginBean loginBean){
+	public ResponseBean<UserBean> Login(@RequestBody LoginBean loginBean) {
 		UserBean signup = null;
 		ResponseBean<UserBean> response = new ResponseBean<>();
-		signup = signupDao.login(loginBean.getEmail(),loginBean.getPassword());
+		signup = signupDao.login(loginBean.getEmail(), loginBean.getPassword());
 		response.setData(signup);
 		response.setMsg("user login....!!");
 		response.setStatus(200);
-		 
-		 return response;
+
+		return response;
 	}
-	
+
 	@DeleteMapping("deleteSignup/{userId}")
 	public ResponseBean<UserBean> deleteSignup(@PathVariable("userId") int userId) {
 
@@ -103,7 +100,7 @@ public class SessionController {
 		return responseBean;
 
 	}
-	
+
 	@PutMapping("/updateSignup")
 	public ResponseBean<UserBean> updateSignup(@RequestBody UserBean signupBean) {
 
@@ -116,40 +113,40 @@ public class SessionController {
 
 		return responseBean;
 	}
-	
-	@GetMapping("resetpassword")
-	public ResponseBean<UserBean> sendOtpForResetPassword(@RequestParam("email") String email) {
-		 System.out.println("reset password call...");
-		 UserBean userBean = signupDao.getUserByEmail(email);
+
+	@GetMapping("/resetpassword/{email}")
+	public ResponseBean<UserBean> sendOtpForResetPassword(@PathVariable("email") String email) {
+		System.out.println("reset password call...");
+		UserBean userBean = signupDao.getUserByEmail(email);
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
-		
+
 		responseBean.setData(userBean);
-		
+
 		if (userBean == null) {
-			
+
 			responseBean.setMsg("Invalid Email Address");
 			responseBean.setStatus(201);
 
 		} else {
-			
+
 			String otp = OtpService.generateOtp();
 			userBean.setOtp(otp);
 			otpDao.updateOtp(email, otp);
 			mailerService.sendOtpForForgetPassword(userBean);
-			
+
 			responseBean.setMsg("Please Check Email for OTP");
-			responseBean.setStatus(201);
+			responseBean.setStatus(200);
 
 		}
 
 		return responseBean;
 	}
-	
+
 	@PostMapping("setnewpassword")
 	public ResponseBean<UserBean> setNewPasswordUsingOtp(UserBean userBean) {
 
 		UserBean dbUser = signupDao.getUserByEmail(userBean.getEmail());
-		
+
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
 
 		if (dbUser == null) {
@@ -158,14 +155,14 @@ public class SessionController {
 			responseBean.setStatus(201);
 
 		} else {
-			
-			if(dbUser.getOtp().equals(userBean.getOtp())) {	
+
+			if (dbUser.getOtp().equals(userBean.getOtp())) {
 				otpDao.updateOtp(userBean.getEmail(), "");
 				signupDao.updatePassword(userBean);
 				mailerService.sendMailForPasswordUpdate(dbUser);
 				responseBean.setMsg("Password Update...");
 				responseBean.setStatus(201);
-			}else {
+			} else {
 				responseBean.setMsg("Invalid Otp....");
 				responseBean.setStatus(201);
 			}
@@ -174,5 +171,5 @@ public class SessionController {
 
 		return responseBean;
 	}
-		
+
 }
