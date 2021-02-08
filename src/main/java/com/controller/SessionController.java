@@ -20,6 +20,8 @@ import com.dao.OtpDao;
 import com.dao.SessionDao;
 import com.services.MailerService;
 
+import net.bytebuddy.asm.Advice.This;
+
 @CrossOrigin(origins = "*")
 @RestController
 public class SessionController {
@@ -142,7 +144,7 @@ public class SessionController {
 		return responseBean;
 	}
 
-	@PostMapping("setnewpassword/{email}")
+	@GetMapping("setnewpassword")
 	public ResponseBean<UserBean> setNewPasswordUsingOtp(@RequestBody UserBean userBean) {
 
 		UserBean dbUser = signupDao.getUserByEmail(userBean.getEmail());
@@ -161,7 +163,7 @@ public class SessionController {
 				signupDao.updatePassword(userBean);
 				mailerService.sendMailForPasswordUpdate(dbUser);
 				responseBean.setMsg("Password Update...");
-				responseBean.setStatus(201);
+				responseBean.setStatus(200);
 			} else {
 				responseBean.setMsg("Invalid Otp....");
 				responseBean.setStatus(201);
