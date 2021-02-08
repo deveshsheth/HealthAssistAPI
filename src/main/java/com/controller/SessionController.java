@@ -143,7 +143,7 @@ public class SessionController {
 	}
 
 	@PostMapping("setnewpassword")
-	public ResponseBean<UserBean> setNewPasswordUsingOtp(UserBean userBean) {
+	public ResponseBean<UserBean> setNewPasswordUsingOtp(@RequestBody UserBean userBean) {
 
 		UserBean dbUser = signupDao.getUserByEmail(userBean.getEmail());
 
