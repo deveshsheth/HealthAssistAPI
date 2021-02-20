@@ -22,7 +22,6 @@ import com.services.MailerService;
 
 import net.bytebuddy.asm.Advice.This;
 
-@CrossOrigin(origins = "*")
 @RestController
 public class SessionController {
 	@Autowired
@@ -144,10 +143,16 @@ public class SessionController {
 		return responseBean;
 	}
 
-	@GetMapping("setnewpassword")
-	public ResponseBean<UserBean> setNewPasswordUsingOtp(@RequestBody UserBean userBean) {
-
-		UserBean dbUser = signupDao.getUserByEmail(userBean.getEmail());
+	@GetMapping("setnewpassword/{otp}/{password}/{email}")
+	public ResponseBean<UserBean> setNewPasswordUsingOtp(@PathVariable("otp") String otp,
+			@PathVariable("password") String password, @PathVariable("email") String email) {
+		System.out.println("Setnewpassword....!!!");
+		
+		System.out.println(otp);
+		System.out.println(password);
+		System.out.println(email);
+		System.out.println("=====");
+		UserBean dbUser = signupDao.getUserByEmail(email);
 
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
 
@@ -158,9 +163,10 @@ public class SessionController {
 
 		} else {
 
-			if (dbUser.getOtp().equals(userBean.getOtp())) {
-				otpDao.updateOtp(userBean.getEmail(), "");
-				signupDao.updatePassword(userBean);
+			dbUser.setPassword(password);
+			if (dbUser.getOtp().equals(otp)) {
+				otpDao.updateOtp(email, "");
+				signupDao.updatePassword(dbUser);
 				mailerService.sendMailForPasswordUpdate(dbUser);
 				responseBean.setMsg("Password Update...");
 				responseBean.setStatus(200);
