@@ -57,7 +57,7 @@ public class MailerService {
 			// Set Subject: header field
 			message.setSubject("EmailVerification OTP");
 
-			String url = "<a href='http://localhost:9595/verifyemail'>Verify</a>";
+			String url = "<a href='https://healthassist-frontend.herokuapp.com/newpassword'>Click Here To Verify</a>";
 			// Now set the actual message
 			message.setContent(
 					"Hello " + userBean.getFirstName() + ", <b>" + userBean.getOtp()

@@ -74,6 +74,7 @@ JdbcTemplate stmt;
 	
 	public List<UserBean> listUser() {
 		// TODO Auto-generated method stub
+		
 		java.util.List<UserBean> userBean = stmt.query("select * from users",BeanPropertyRowMapper.newInstance(UserBean.class)); 
 		 return userBean;
 	}
@@ -89,9 +90,21 @@ JdbcTemplate stmt;
 	
 	public UserBean login(String email, String password) {
 		// TODO Auto-generated method stub
+		email = email.trim();
+		password = password.trim();
 		UserBean userBean = null;
-			userBean =stmt.queryForObject("select * from users where email=? and password=?",
-				new Object[] {email,password}, BeanPropertyRowMapper.newInstance(UserBean.class));
+		System.out.println(email);
+		System.out.println(password);
+		try {
+			userBean =stmt.queryForObject("select * from users where email = ? and password = ?",
+					new Object[] {email,password}, BeanPropertyRowMapper.newInstance(UserBean.class));
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("errror ...");
+			e.printStackTrace();
+		}
+		
+		System.out.println(userBean);	
 		return userBean;
 	}
 	

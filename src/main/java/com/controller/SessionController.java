@@ -38,14 +38,23 @@ public class SessionController {
 
 	@PostMapping("/Signup")
 	public ResponseBean<UserBean> insertUser(@RequestBody UserBean userBean) {
-		userBean.setOtp(OtpService.generateOtp());
-		mailerService.sendOtpForUserVerification(userBean);
-		signupDao.insertUser(userBean);
 		ResponseBean<UserBean> response = new ResponseBean<>();
+		
+		if(signupDao.getUserByEmail(userBean.getEmail()) != null) {
+			response.setMsg("Email Already registered");
+			response.setStatus(201);
+		}else {
+			userBean.setOtp(OtpService.generateOtp());
+			mailerService.sendOtpForUserVerification(userBean);
+			signupDao.insertUser(userBean);
+			
 
-		response.setData(userBean);
-		response.setMsg("user signup successfully....!!");
-		response.setStatus(200);
+			response.setData(userBean);
+			response.setMsg("user signup successfully....!!");
+			response.setStatus(200);
+		}
+		
+		
 		return response;
 	}
 
@@ -79,11 +88,20 @@ public class SessionController {
 	@PostMapping("/login")
 	public ResponseBean<UserBean> Login(@RequestBody LoginBean loginBean) {
 		UserBean signup = null;
+		System.out.println(loginBean.getEmail());
+		System.out.println(loginBean.getPassword());
 		ResponseBean<UserBean> response = new ResponseBean<>();
 		signup = signupDao.login(loginBean.getEmail(), loginBean.getPassword());
-		response.setData(signup);
-		response.setMsg("user login....!!");
-		response.setStatus(200);
+		if(signup ==null) {
+			response.setMsg("Invalid Credentails..!!");
+			response.setStatus(201);
+		}
+		else {
+			response.setData(signup);
+			response.setMsg("user login....!!");
+			response.setStatus(200);
+		}
+		
 
 		return response;
 	}
