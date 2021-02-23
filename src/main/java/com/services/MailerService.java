@@ -115,7 +115,7 @@ public class MailerService {
 			String url = "<a href='https://healthassist-frontend.herokuapp.com/newpassword'>Click Here To Verify</a>";
 			// Now set the actual message
 			message.setContent("Hello " + userBean.getFirstName() + ", <b>" + userBean.getOtp()
-					+ "</b> is your OTP to verify your Identity For Reset Password<br>", "text/html");
+					+ "</b> is your OTP to verify your Identity For Reset Password<br>" + url, "text/html");
 
 			// Send message
 			Transport.send(message);
