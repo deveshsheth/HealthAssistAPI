@@ -12,7 +12,16 @@ public class PharmacyBean {
 	double lat;
 	double log;
 	int cityid;
+	String cityname;
 	int pincode;
+	
+	public String getCityname() {
+		return cityname;
+	}
+	public void setCityname(String cityname) {
+		this.cityname = cityname;
+	}
+
 	
 	public int getPharmacyid() {
 		return pharmacyid;

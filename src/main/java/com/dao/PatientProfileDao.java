@@ -26,7 +26,7 @@ public class PatientProfileDao {
 	public List<PatientProfileBean> listPatient() {
 		// TODO Auto-generated method stub
 		
-		java.util.List<PatientProfileBean> patientBean = stmt.query("select * from patientprofile",BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
+		java.util.List<PatientProfileBean> patientBean = stmt.query("select *,cities.cityname from patientprofile as p join cities using(cityid) where p.cityid = cityid",BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
 		return patientBean;
 	}
 

@@ -133,6 +133,13 @@ JdbcTemplate stmt;
 		stmt.update("update users set password = ? where email  = ? ",userBean.getPassword(),userBean.getEmail());
 	}
 
+	public List<DoctorProfileBean> listdoctor() {
+		
+		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select * from doctorprofile as d join users using(userid) where userid = d.userid",BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		// TODO Auto-generated method stub
+		return DoctorBean;
+	}
+
 	
 
 }

@@ -54,6 +54,18 @@ public class PathologyController {
 		return response;
 	}
 	
+	@GetMapping("/getpathology/{PathologyId}")
+	public ResponseBean<PathologyBean> getUser(@RequestBody @PathVariable("PathologyId") int pathologyId){
+		
+		ResponseBean<PathologyBean> responseBean = new ResponseBean<>();
+		
+		responseBean.setData(pathologyDao.getPathologyById(pathologyId));
+		responseBean.setMsg("Single User Return");
+		responseBean.setStatus(200);
+	
+		return responseBean;
+	}
+	
 	@PutMapping("/updatePathology")
 	public ResponseBean<PathologyBean> updatePathology(@RequestBody PathologyBean pathologyBean){
 		pathologyDao.updatePathology(pathologyBean);

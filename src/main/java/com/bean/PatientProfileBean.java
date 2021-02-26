@@ -10,10 +10,17 @@ public class PatientProfileBean {
 	int age;
 	String profilepic;
 	int cityid;
+	String cityname;
 	int stateid;
 	int pincode;
 	
 	
+	public String getCityname() {
+		return cityname;
+	}
+	public void setCityname(String cityname) {
+		this.cityname = cityname;
+	}
 	public int getPatientid() {
 		return patientid;
 	}

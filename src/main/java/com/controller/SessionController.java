@@ -1,14 +1,12 @@
 package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.DoctorProfileBean;
@@ -20,7 +18,6 @@ import com.dao.OtpDao;
 import com.dao.SessionDao;
 import com.services.MailerService;
 
-import net.bytebuddy.asm.Advice.This;
 
 @RestController
 public class SessionController {
@@ -72,6 +69,17 @@ public class SessionController {
 		responseBean.setStatus(200);
 
 		return responseBean;
+	}
+	
+	@GetMapping("/listDoctor")
+	public ResponseBean<java.util.List<DoctorProfileBean>> listDoctor() {
+		ResponseBean<java.util.List<DoctorProfileBean>> response = new ResponseBean<>();
+
+		java.util.List<DoctorProfileBean> doctorBean = signupDao.listdoctor();
+		response.setData(doctorBean);
+		response.setMsg(" Doctor List Display..!!!!");
+		response.setStatus(201);
+		return response;
 	}
 
 	@GetMapping("/listUser")

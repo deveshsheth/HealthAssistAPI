@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class PathologyDao {
 	@Autowired
 	JdbcTemplate stmt;
 	
+	ArrayList<PathologyBean> pathology = new ArrayList<>();
+	
 	public void addPathology(PathologyBean pathologyBean) {
 		// TODO Auto-generated method stub
 					stmt.update("insert into pathology(pathologyname,timing,address,phoneno,rating,about,lat,log,cityid,pincode) values(?,?,?,?,?,?,?,?,?,?)", 
@@ -27,7 +30,7 @@ public class PathologyDao {
 	public List<PathologyBean> listPathology() {
 		// TODO Auto-generated method stub
 		
-		java.util.List<PathologyBean> pathologyBean = stmt.query("select * from pathology",BeanPropertyRowMapper.newInstance(PathologyBean.class));
+		java.util.List<PathologyBean> pathologyBean = stmt.query("select *,cities.cityname from pathology as p join cities using(cityid) where p.cityid = cityid",BeanPropertyRowMapper.newInstance(PathologyBean.class));
 		return pathologyBean;
 	}
 
@@ -43,6 +46,21 @@ public class PathologyDao {
 				pathologyBean.getPathologyname(),pathologyBean.getTiming(),pathologyBean.getAddress(),pathologyBean.getPhoneno(),pathologyBean.getRating(),
 				pathologyBean.getAbout(),pathologyBean.getLat(),pathologyBean.getLog(),pathologyBean.getCityid(),pathologyBean.getPincode(),pathologyBean.getPathologyid());
 		
+	}
+
+	public PathologyBean getPathologyById(int pathologyId) {
+		// TODO Auto-generated method stub
+		
+		PathologyBean pathologyBean = null;
+		for(PathologyBean pathology : pathology)
+		{
+			if(pathology.getPathologyid() == pathologyId) {
+				
+				pathologyBean = pathology;
+				break;
+			}
+		}
+		return pathologyBean;
 	}
 	
 	
