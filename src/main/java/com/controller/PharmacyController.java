@@ -44,14 +44,27 @@ public class PharmacyController {
 		return response;
 	}
 	
-	@DeleteMapping("/addPharmacy/{PharmacyId}")
-	public ResponseBean<PharmacyBean> deletePharmacy(@PathVariable("PharmacyId")int PharmacyId){
+	@DeleteMapping("/addPharmacy/{pharmacyid}")
+	public ResponseBean<PharmacyBean> deletePharmacy(@PathVariable("pharmacyid")int pharmacyid){
 		
 		ResponseBean<PharmacyBean> response = new ResponseBean<>();
-		pharmacyDao.deletePharmacy(PharmacyId);
+		pharmacyDao.deletePharmacy(pharmacyid);
 		response.setMsg("Pharmacy Deleted Successfully..!!");
 		response.setStatus(200);
 		return response;
+	}
+	
+	
+	@GetMapping("/getpharmacy/{pharmacyId}")
+	public ResponseBean<PharmacyBean> getUser(@PathVariable("pharmacyId") int pharmacyId , PharmacyBean bean){
+		
+		ResponseBean<PharmacyBean> responseBean = new ResponseBean<>();
+		bean = pharmacyDao.getPharmacyById(pharmacyId);
+		responseBean.setData(bean);
+		responseBean.setMsg("Single User Return");
+		responseBean.setStatus(200);
+	
+		return responseBean;
 	}
 	
 	@PutMapping("/updatePharmacy")

@@ -14,7 +14,16 @@ public class PharmacyBean {
 	int cityid;
 	String cityname;
 	int pincode;
+	int isdelete;
 	
+	
+	
+	public int getIsdelete() {
+		return isdelete;
+	}
+	public void setIsdelete(int isdelete) {
+		this.isdelete = isdelete;
+	}
 	public String getCityname() {
 		return cityname;
 	}

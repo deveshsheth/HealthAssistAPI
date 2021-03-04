@@ -45,11 +45,23 @@ public class ClinicController {
 		return response;
 	}
 	
-	@DeleteMapping("/addClinic/{ClinicId}")
-	public ResponseBean<ClinicBean> deleteClinic(@PathVariable("ClinicId")int ClinicId){
+	@GetMapping("/getclinic/{clinicid}")
+	public ResponseBean<ClinicBean> getUser(@PathVariable("clinicid") int clinicid , ClinicBean bean){
+		
+		ResponseBean<ClinicBean> responseBean = new ResponseBean<>();
+		bean = clinicDao.getClinicById(clinicid);
+		responseBean.setData(bean);
+		responseBean.setMsg("Single Clinic Return");
+		responseBean.setStatus(200);
+	
+		return responseBean;
+	}
+	
+	@DeleteMapping("/addClinic/{clinicid}")
+	public ResponseBean<ClinicBean> deleteClinic(@PathVariable("clinicid")int clinicid){
 		
 		ResponseBean<ClinicBean> response = new ResponseBean<>();
-		clinicDao.deleteClinic(ClinicId);
+		clinicDao.deleteClinic(clinicid);
 		response.setMsg("Clinic Deleted Successfully..!!");
 		response.setStatus(200);
 		return response;

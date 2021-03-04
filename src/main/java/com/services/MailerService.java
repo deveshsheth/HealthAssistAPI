@@ -60,7 +60,7 @@ public class MailerService {
 			String url = "<a href='https://healthassist-frontend.herokuapp.com/newpassword'>Click Here To Verify</a>";
 			// Now set the actual message
 			message.setContent(
-					"Hello " + userBean.getFirstName() + ", <b>" + userBean.getOtp()
+					"Hello " + userBean.getFirstname() + ", <b>" + userBean.getOtp()
 							+ "</b> is your OTP to verify your Email<br> click below to verify your account<br>" + url,
 					"text/html");
 
@@ -114,7 +114,7 @@ public class MailerService {
 			
 			String url = "<a href='https://healthassist-frontend.herokuapp.com/newpassword'>Click Here To Verify</a>";
 			// Now set the actual message
-			message.setContent("Hello " + userBean.getFirstName() + ", <b>" + userBean.getOtp()
+			message.setContent("Hello " + userBean.getFirstname() + ", <b>" + userBean.getOtp()
 					+ "</b> is your OTP to verify your Identity For Reset Password<br>" + url, "text/html");
 
 			// Send message
@@ -179,7 +179,7 @@ public class MailerService {
 			message.setSubject("Password Updated!!!");
 
 			// Now set the actual message
-			message.setContent("Hello " + dbUser.getFirstName() + ",   Your Password succssfully update.. <br>",
+			message.setContent("Hello " + dbUser.getFirstname() + ",   Your Password succssfully update.. <br>",
 					"text/html");
 
 			// Send message

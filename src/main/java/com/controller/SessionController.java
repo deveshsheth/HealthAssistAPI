@@ -57,17 +57,30 @@ public class SessionController {
 
 	@PostMapping("/doctorsignup")
 	public ResponseBean<UserBean> doctorSignup(@RequestBody DoctorProfileBean doctorProfileBean) {
+		System.out.println("RoleId =>"+doctorProfileBean.getRoleid());
 		doctorProfileBean.setStatus(UserBean.KYC_DOCTOR);
-		doctorProfileBean.setStatusReason("Your KYS is pending Our Team Will Contact You Soon..");
+		doctorProfileBean.setStatusReason("Your KYC is pending Our Team Will Contact You Soon..");
 		mailerService.sendDoctorRegisterMail(doctorProfileBean);
 		signupDao.addDoctorProfile(doctorProfileBean);
-
+//		doctorProfileBean.setRoleId(3);
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
 
 		responseBean.setData(doctorProfileBean);
 		responseBean.setMsg("doctor successfully signup!!");
 		responseBean.setStatus(200);
 
+		return responseBean;
+	}
+	
+	@GetMapping("/getdoctor/{userId}")
+	public ResponseBean<DoctorProfileBean> getDoctor(@PathVariable("userId") int userId , DoctorProfileBean bean){
+		
+		ResponseBean<DoctorProfileBean> responseBean = new ResponseBean<>();
+		bean = signupDao.getDoctorById(userId);
+		responseBean.setData(bean);
+		responseBean.setMsg("Single User Return");
+		responseBean.setStatus(200);
+	
 		return responseBean;
 	}
 	
@@ -92,6 +105,7 @@ public class SessionController {
 		response.setStatus(201);
 		return response;
 	}
+	
 
 	@PostMapping("/login")
 	public ResponseBean<UserBean> Login(@RequestBody LoginBean loginBean) {
@@ -127,6 +141,20 @@ public class SessionController {
 		return responseBean;
 
 	}
+	
+	@DeleteMapping("/deleteDoctor/{userId}")
+	public ResponseBean<UserBean> deleteDoctor(@PathVariable("userId") int userId) {
+
+		signupDao.deleteDoctor(userId);
+
+		ResponseBean<UserBean> responseBean = new ResponseBean<>();
+
+		responseBean.setMsg("Doctor Deleted!!");
+		responseBean.setStatus(201);
+
+		return responseBean;
+
+	}
 
 	@PutMapping("/updateSignup")
 	public ResponseBean<UserBean> updateSignup(@RequestBody UserBean signupBean) {
@@ -140,6 +168,20 @@ public class SessionController {
 
 		return responseBean;
 	}
+	
+	@PutMapping("/updateDoctor")
+	public ResponseBean<DoctorProfileBean> updateDoctor(@RequestBody DoctorProfileBean bean, UserBean userbean) {
+
+		signupDao.updateDoctor(bean);
+		ResponseBean<DoctorProfileBean> responseBean = new ResponseBean<>();
+		responseBean.setData(bean);
+		responseBean.setMsg("Doctor Updated!!");
+		responseBean.setStatus(201);
+
+		return responseBean;
+	}
+	
+	
 
 	@GetMapping("/resetpassword/{email}")
 	public ResponseBean<UserBean> sendOtpForResetPassword(@PathVariable("email") String email) {

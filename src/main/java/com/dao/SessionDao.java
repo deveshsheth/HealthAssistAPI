@@ -34,10 +34,10 @@ JdbcTemplate stmt;
 				PreparedStatement pstmt = con.prepareStatement(insertSql, java.sql.Statement.RETURN_GENERATED_KEYS);
 				pstmt.setString(1,userBean.getEmail());
 				pstmt.setString(2, userBean.getPassword());
-				pstmt.setString(3,userBean.getFirstName());
-				pstmt.setString(4,userBean.getLastName());
+				pstmt.setString(3,userBean.getFirstname());
+				pstmt.setString(4,userBean.getLastname());
 				pstmt.setString(5,userBean.getGender());
-				pstmt.setInt(6,userBean.getRoleId());
+				pstmt.setInt(6,userBean.getRoleid());
 				pstmt.setInt(7,userBean.getStatus());
 				pstmt.setString(8,userBean.getStatusReason());
 				pstmt.setString(9,userBean.getOtp());
@@ -51,40 +51,32 @@ JdbcTemplate stmt;
 	}
 
 	public void addDoctorProfile(DoctorProfileBean doctorProfileBean) {
-		UserBean userBean = new UserBean();
-		userBean.setEmail(doctorProfileBean.getEmail());
-		userBean.setPassword(doctorProfileBean.getPassword());
-		userBean.setFirstName(doctorProfileBean.getFirstName());
-		userBean.setLastName(doctorProfileBean.getLastName());
-		userBean.setGender(doctorProfileBean.getGender());
-		userBean.setRoleId(doctorProfileBean.getRoleId());
-		userBean.setStatus(doctorProfileBean.getStatus());
-		userBean.setStatusReason(doctorProfileBean.getStatusReason());
 		
-		int userId  = insertUser(userBean);
+		UserBean userBean = new UserBean();
+		userBean.setRoleid(3);
+		
+		//		doctorProfileBean.setRoleId(3);
+		int userId  = insertUser(doctorProfileBean);
+		
 		doctorProfileBean.setUserId(userId);
+		
 		stmt.update(
 				"insert into doctorprofile (userid,qualification,specialization,experience,profilepic,about,registrationno) values (?,?,?,?,?,?,?)",
 				doctorProfileBean.getUserId(), doctorProfileBean.getQualification(),
 				doctorProfileBean.getSpecialization(),
-				doctorProfileBean.getExperience_in_year(), doctorProfileBean.getProfile_pic(),
+				doctorProfileBean.getExperience(), doctorProfileBean.getProfilepic(),
 				doctorProfileBean.getAbout(), doctorProfileBean.getRegistrationNo());
 	}
 	
 	
-	public List<UserBean> listUser() {
-		// TODO Auto-generated method stub
-		
-		java.util.List<UserBean> userBean = stmt.query("select * from users",BeanPropertyRowMapper.newInstance(UserBean.class)); 
-		 return userBean;
-	}
+	
 
 	
 	public void updateSignup(UserBean signupBean) {
 		stmt.update(
 				"update users set email = ?,password = ?,firstname = ?,lastname = ?,gender = ?,roleid = ? where userid = ?",
-				signupBean.getEmail(), signupBean.getPassword(), signupBean.getFirstName(), signupBean.getLastName(),
-				signupBean.getGender(), signupBean.getRoleId(), signupBean.getUserId());
+				signupBean.getEmail(), signupBean.getPassword(), signupBean.getFirstname(), signupBean.getLastname(),
+				signupBean.getGender(), signupBean.getRoleid(), signupBean.getUserId());
 
 	}
 	
@@ -108,10 +100,7 @@ JdbcTemplate stmt;
 		return userBean;
 	}
 	
-	public void deleteSignup(int userId) {
-		stmt.update("delete from users where userid = ?", userId);
-
-	}
+	
 
 	public UserBean getUserByEmail(String email) {
 		// TODO Auto-generated method stub
@@ -135,10 +124,56 @@ JdbcTemplate stmt;
 
 	public List<DoctorProfileBean> listdoctor() {
 		
-		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select * from doctorprofile as d join users using(userid) where userid = d.userid",BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select * from doctorprofile as d join users using(userid) where userid = d.userid and d.isdeleted=0",BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
 		// TODO Auto-generated method stub
 		return DoctorBean;
 	}
+
+	public DoctorProfileBean getDoctorById(int userId) {
+		// TODO Auto-generated method stub
+		DoctorProfileBean bean = null;
+		try {
+			bean = stmt.queryForObject("select * from doctorprofile as d join users using(userid) where userid = d.userid and userid=?", new Object[] { userId },
+					BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return bean;
+	}
+
+	public void updateDoctor(DoctorProfileBean bean) {
+		// TODO Auto-generated method stub
+		
+		stmt.update("update doctorprofile set qualification=?,specialization=?,experience=?,profilepic=?,about=?,registrationno=? where userid=?" 
+				,bean.getQualification(),bean.getSpecialization(),bean.getExperience(),bean.getProfilepic(),bean.getAbout(),bean.getRegistrationNo(),bean.getUserId());
+		
+		stmt.update(
+				"update users set email = ?,password = ?,firstname = ?,lastname = ?,gender = ?,status=? where userid = ?",
+				bean.getEmail(), bean.getPassword(), bean.getFirstname(), bean.getLastname(),bean.getStatus(),
+				bean.getGender(), bean.getUserId());
+		
+	}
+
+	
+	public List<UserBean> listUser() {
+		// TODO Auto-generated method stub
+		
+		java.util.List<UserBean> userBean = stmt.query("select * from users where isdeleted=0",BeanPropertyRowMapper.newInstance(UserBean.class)); 
+		 return userBean;
+	}
+
+	public void deleteDoctor(int userId) {
+		// TODO Auto-generated method stub
+		stmt.update("update doctorprofile set isdeleted = 1 where userid = ?", userId);
+	}
+	
+	public void deleteSignup(int userId) {
+		stmt.update("update users set isdeleted = 1 where userid = ?", userId);
+
+	}
+
+	
 
 	
 

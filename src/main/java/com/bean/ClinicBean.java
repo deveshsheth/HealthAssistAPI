@@ -12,10 +12,18 @@ public class ClinicBean {
 	double lat;
 	double log;
 	int cityid;
-	int stateid;
 	String pincode;
+	String cityname;
 	
 	
+	
+	
+	public String getCityname() {
+		return cityname;
+	}
+	public void setCityname(String cityname) {
+		this.cityname = cityname;
+	}
 	public int getClinicid() {
 		return clinicid;
 	}
@@ -76,12 +84,6 @@ public class ClinicBean {
 	}
 	public void setCityid(int cityid) {
 		this.cityid = cityid;
-	}
-	public int getStateid() {
-		return stateid;
-	}
-	public void setStateid(int stateid) {
-		this.stateid = stateid;
 	}
 	public String getPincode() {
 		return pincode;

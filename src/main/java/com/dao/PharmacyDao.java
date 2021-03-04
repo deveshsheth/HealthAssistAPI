@@ -25,14 +25,14 @@ public class PharmacyDao {
 
 	public List<PharmacyBean> listPharmacy() {
 		// TODO Auto-generated method stub
-		java.util.List<PharmacyBean> pharmacyBean = stmt.query("select *,cities.cityname from pharmacy as p join cities using(cityid) where p.cityid = cityid",BeanPropertyRowMapper.newInstance(PharmacyBean.class));
+		java.util.List<PharmacyBean> pharmacyBean = stmt.query("select *,cities.cityname from pharmacy as p join cities using(cityid) where p.cityid = cityid and isdeleted =0",BeanPropertyRowMapper.newInstance(PharmacyBean.class));
 		System.out.println(pharmacyBean);
 		return pharmacyBean;
 	}
 
-	public void deletePharmacy(int pharmacyId) {
+	public void deletePharmacy(int pharmacyid) {
 		// TODO Auto-generated method stub
-		stmt.update("delete from pharmacy where pharmacyid = ?",pharmacyId);
+		stmt.update("update pharmacy set isdeleted = 1 where pharmacyid = ?",pharmacyid);
 	}
 
 	public void updatePharmacy(PharmacyBean pharmacyBean) {
@@ -41,6 +41,19 @@ public class PharmacyDao {
 		pharmacyBean.getPharmacyname(),pharmacyBean.getTiming(),pharmacyBean.getAddress(),pharmacyBean.getPhoneno(),pharmacyBean.getRating(),
 		pharmacyBean.getAbout(),pharmacyBean.getLat(),pharmacyBean.getLog(),pharmacyBean.getCityid(),pharmacyBean.getPincode(),pharmacyBean.getPharmacyid());
 		
+	}
+
+	public PharmacyBean getPharmacyById(int pharmacyId) {
+		// TODO Auto-generated method stub
+		PharmacyBean bean = null;
+		try {
+			bean = stmt.queryForObject("select * from pharmacy where pharmacyid=?", new Object[] { pharmacyId },
+					BeanPropertyRowMapper.newInstance(PharmacyBean.class));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return bean;
 	}
 
 }

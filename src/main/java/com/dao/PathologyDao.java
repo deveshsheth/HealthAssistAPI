@@ -1,6 +1,6 @@
 package com.dao;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class PathologyDao {
 	@Autowired
 	JdbcTemplate stmt;
 	
-	ArrayList<PathologyBean> pathology = new ArrayList<>();
+	
 	
 	public void addPathology(PathologyBean pathologyBean) {
 		// TODO Auto-generated method stub
@@ -30,13 +30,13 @@ public class PathologyDao {
 	public List<PathologyBean> listPathology() {
 		// TODO Auto-generated method stub
 		
-		java.util.List<PathologyBean> pathologyBean = stmt.query("select *,cities.cityname from pathology as p join cities using(cityid) where p.cityid = cityid",BeanPropertyRowMapper.newInstance(PathologyBean.class));
+		java.util.List<PathologyBean> pathologyBean = stmt.query("select *,cities.cityname from pathology as p join cities using(cityid) where p.cityid = cityid and isdeleted =0",BeanPropertyRowMapper.newInstance(PathologyBean.class));
 		return pathologyBean;
 	}
 
 	public void deletePathology(int pathologyId) {
 		// TODO Auto-generated method stub
-		stmt.update("delete from pathology where pathologyid = ?",pathologyId);
+		stmt.update("update pathology set isdeleted = 1 where pathologyid = ?",pathologyId);
 		
 	}
 
@@ -50,18 +50,19 @@ public class PathologyDao {
 
 	public PathologyBean getPathologyById(int pathologyId) {
 		// TODO Auto-generated method stub
-		
-		PathologyBean pathologyBean = null;
-		for(PathologyBean pathology : pathology)
-		{
-			if(pathology.getPathologyid() == pathologyId) {
-				
-				pathologyBean = pathology;
-				break;
-			}
+		PathologyBean bean = null;
+		try {
+			bean = stmt.queryForObject("select * from pathology where pathologyid=?", new Object[] { pathologyId },
+					BeanPropertyRowMapper.newInstance(PathologyBean.class));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
-		return pathologyBean;
+		return bean;
 	}
+
+
+
 	
 	
 

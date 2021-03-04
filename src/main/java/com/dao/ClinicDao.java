@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bean.ClinicBean;
+import com.bean.PharmacyBean;
 
 @Repository
 public class ClinicDao {
@@ -17,30 +18,30 @@ public class ClinicDao {
 	
 	public void addClinic(ClinicBean clinicBean) {
 		// TODO Auto-generated method stub
-		stmt.update("insert into clinic (clinicname,timing,address,phoneno,rating,about,lat,log,cityid,stateid,pincode) values(?,?,?,?,?,?,?,?,?,?,?)",
+		stmt.update("insert into clinic (clinicname,timing,address,phoneno,rating,about,lat,log,cityid,pincode) values(?,?,?,?,?,?,?,?,?,?)",
 				clinicBean.getClinicname(),clinicBean.getTiming(),clinicBean.getAddress(),clinicBean.getPhoneno(),
 				clinicBean.getRating(),clinicBean.getAbout(),clinicBean.getLat(),clinicBean.getLog(),clinicBean.getCityid(),
-				clinicBean.getStateid(),clinicBean.getPincode());
+				clinicBean.getPincode());
 	}
 
 	public List<ClinicBean> listClinic() {
 		// TODO Auto-generated method stub
-		java.util.List<ClinicBean> clinicBean = stmt.query("select * from clinic",BeanPropertyRowMapper.newInstance(ClinicBean.class));
+		java.util.List<ClinicBean> clinicBean = stmt.query("select *,cities.cityname from clinic as c join cities using(cityid) where c.cityid = cityid and isdeleted =0",BeanPropertyRowMapper.newInstance(ClinicBean.class));
 		return clinicBean;
 	}
 
-	public void deleteClinic(int clinicId) {
+	public void deleteClinic(int clinicid) {
 		// TODO Auto-generated method stub.
-		stmt.update("delete from clinic where clinicid = ?",clinicId);
+		stmt.update("update clinic set isdeleted = 1 where clinicid = ?",clinicid);
 		
 	}
 
 	public void updateClinic(ClinicBean clinicBean) {
 		// TODO Auto-generated method stub
-		stmt.update("update clinic set clinicname=?,timing=?,address=?,phoneno=?,rating=?,about=?,lat=?,log=?,cityid=?,stateid=?,pincode=? where clinicid=?",
+		stmt.update("update clinic set clinicname=?,timing=?,address=?,phoneno=?,rating=?,about=?,lat=?,log=?,cityid=?,pincode=? where clinicid=?",
 				clinicBean.getClinicname(),clinicBean.getTiming(),clinicBean.getAddress(),clinicBean.getPhoneno(),
 				clinicBean.getRating(),clinicBean.getAbout(),clinicBean.getLat(),clinicBean.getLog(),clinicBean.getCityid(),
-				clinicBean.getStateid(),clinicBean.getPincode(),clinicBean.getClinicid());
+				clinicBean.getPincode(),clinicBean.getClinicid());
 	}
 
 
@@ -48,6 +49,19 @@ public class ClinicDao {
 		// TODO Auto-generated method stub
 		
 		return null;
+	}
+
+	public ClinicBean getClinicById(int clinicid) {
+		// TODO Auto-generated method stub
+		ClinicBean bean = null;
+		try {
+			bean = stmt.queryForObject("select * from clinic where clinicid=?", new Object[] { clinicid },
+					BeanPropertyRowMapper.newInstance(ClinicBean.class));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return bean;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.controller;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,22 +46,22 @@ public class PathologyController {
 		return response;
 	}
 	
-	@DeleteMapping("/addPathology/{PathologyId}")
-	public ResponseBean<PathologyBean> deletePathology(@PathVariable("PathologyId")int PathologyId){
+	@DeleteMapping("/addPathology/{pathologyId}")
+	public ResponseBean<PathologyBean> deletePathology(@PathVariable("pathologyId")int pathologyId){
 		
 		ResponseBean<PathologyBean> response = new ResponseBean<>();
-		pathologyDao.deletePathology(PathologyId);
+		pathologyDao.deletePathology(pathologyId);
 		response.setMsg("Pathology Deleted Successfully..!!");
 		response.setStatus(200);
 		return response;
 	}
 	
-	@GetMapping("/getpathology/{PathologyId}")
-	public ResponseBean<PathologyBean> getUser(@RequestBody @PathVariable("PathologyId") int pathologyId){
+	@GetMapping("/getpathology/{pathologyId}")
+	public ResponseBean<PathologyBean> getUser(@PathVariable("pathologyId") int pathologyId , PathologyBean bean){
 		
 		ResponseBean<PathologyBean> responseBean = new ResponseBean<>();
-		
-		responseBean.setData(pathologyDao.getPathologyById(pathologyId));
+		bean = pathologyDao.getPathologyById(pathologyId);
+		responseBean.setData(bean);
 		responseBean.setMsg("Single User Return");
 		responseBean.setStatus(200);
 	

@@ -4,10 +4,10 @@ public class UserBean {
 	int userId;
 	String email;
 	String password;
-	String firstName;
-	String lastName;
+	String firstname;
+	String lastname;
 	String gender;
-	int roleId;
+	int roleid;
 	int status;
 	String statusReason;
 	String otp;
@@ -39,30 +39,45 @@ public class UserBean {
 		this.password = password;
 	}
 	
-	public String getFirstName() {
-		return firstName;
+	
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
-	public String getLastName() {
-		return lastName;
+
+
+	public String getLastname() {
+		return lastname;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
+
+
 	public String getGender() {
 		return gender;
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public int getRoleId() {
-		return roleId;
+	
+	
+	public int getRoleid() {
+		return roleid;
 	}
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
+
+
+	public void setRoleid(int roleid) {
+		this.roleid = roleid;
 	}
+
+
 	public int getStatus() {
 		return status;
 	}
