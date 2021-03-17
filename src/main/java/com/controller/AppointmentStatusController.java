@@ -14,28 +14,28 @@ import com.dao.AppointmentStatusDao;
 @RestController
 @CrossOrigin
 public class AppointmentStatusController {
-	
-	@Autowired
-	AppointmentStatusDao appointmentstatusDao;
-	
-	@PostMapping("/addappstatus")
-	public ResponseBean<AppointmentStatusBean> addCities(@RequestBody AppointmentStatusBean appstatusBean){
-		appointmentstatusDao.addAppStatus(appstatusBean);
-		ResponseBean<AppointmentStatusBean> response = new ResponseBean<>();
-		response.setData(appstatusBean);
-		response.setMsg("Appointment Status Inserted successfully...!!");
-		response.setStatus(200);
-		return response;
-		
-	}
-	
-	@PutMapping("/updateappstatus")
-	public ResponseBean<AppointmentStatusBean> updateAppointmentStatus(@RequestBody AppointmentStatusBean appstatusBean){
-		appointmentstatusDao.updateAppStatus(appstatusBean);
-		ResponseBean<AppointmentStatusBean> response = new ResponseBean<>();
-		response.setData(appstatusBean);
-		response.setMsg("Appointment Status Updated Successfully..!!");
-		return response;
-	}
+
+    @Autowired
+    AppointmentStatusDao appointmentstatusDao;
+
+    @PostMapping("/addappstatus")
+    public ResponseBean<AppointmentStatusBean> addCities(@RequestBody AppointmentStatusBean appstatusBean) {
+        appointmentstatusDao.addAppStatus(appstatusBean);
+        ResponseBean<AppointmentStatusBean> response = new ResponseBean<>();
+        response.setData(appstatusBean);
+        response.setMsg("Appointment Status Inserted successfully...!!");
+        response.setStatus(200);
+        return response;
+
+    }
+
+    @PutMapping("/updateappstatus")
+    public ResponseBean<AppointmentStatusBean> updateAppointmentStatus(@RequestBody AppointmentStatusBean appstatusBean) {
+        appointmentstatusDao.updateAppStatus(appstatusBean);
+        ResponseBean<AppointmentStatusBean> response = new ResponseBean<>();
+        response.setData(appstatusBean);
+        response.setMsg("Appointment Status Updated Successfully..!!");
+        return response;
+    }
 
 }

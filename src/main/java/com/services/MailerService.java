@@ -18,178 +18,178 @@ import com.bean.UserBean;
 @Service
 public class MailerService {
 
-	public void sendOtpForUserVerification(UserBean userBean) {
-		// mail logic
-		
-		String to = userBean.getEmail();// change accordingly
+    public void sendOtpForUserVerification(UserBean userBean) {
+        // mail logic
 
-		// Sender's email ID needs to be mentioned
-		String from = "deveshsheth1609@gmail.com";// change accordingly
-		final String username = "deveshsheth1609@gmail.com";// change accordingly
-		final String password = "ugwsqxfriqbeuexq";// change accordingly
+        String to = userBean.getEmail();// change accordingly
 
-		// Assuming you are sending email through relay.jangosmtp.net
-		String host = "smtp.gmail.com";
+        // Sender's email ID needs to be mentioned
+        String from = "deveshsheth1609@gmail.com";// change accordingly
+        final String username = "deveshsheth1609@gmail.com";// change accordingly
+        final String password = "ugwsqxfriqbeuexq";// change accordingly
 
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", "587");
+        // Assuming you are sending email through relay.jangosmtp.net
+        String host = "smtp.gmail.com";
 
-		// Get the Session object.
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		});
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
 
-		try {
-			// Create a default MimeMessage object.
-			Message message = new MimeMessage(session);
+        // Get the Session object.
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
 
-			// Set From: header field of the header.
-			message.setFrom(new InternetAddress(from));
+        try {
+            // Create a default MimeMessage object.
+            Message message = new MimeMessage(session);
 
-			// Set To: header field of the header.
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
 
-			// Set Subject: header field
-			message.setSubject("EmailVerification OTP");
+            // Set To: header field of the header.
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
-			String url = "<a href='https://healthassist-frontend.herokuapp.com/newpassword'>Click Here To Verify</a>";
-			// Now set the actual message
-			message.setContent(
-					"Hello " + userBean.getFirstname() + ", <b>" + userBean.getOtp()
-							+ "</b> is your OTP to verify your Email<br> click below to verify your account<br>" + url,
-					"text/html");
+            // Set Subject: header field
+            message.setSubject("EmailVerification OTP");
 
-			// Send message
-			Transport.send(message);
+            String url = "<a href='https://healthassist-frontend.herokuapp.com/newpassword'>Click Here To Verify</a>";
+            // Now set the actual message
+            message.setContent(
+                    "Hello " + userBean.getFirstname() + ", <b>" + userBean.getOtp()
+                            + "</b> is your OTP to verify your Email<br> click below to verify your account<br>" + url,
+                    "text/html");
 
-			System.out.println("Sent message successfully....");
+            // Send message
+            Transport.send(message);
 
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		
-	}
+            System.out.println("Sent message successfully....");
 
-	public void sendOtpForForgetPassword(UserBean userBean) {
-		String to = userBean.getEmail();// change accordingly
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
 
-		// Sender's email ID needs to be mentioned
-		String from = "deveshsheth1609@gmail.com";// change accordingly
-		final String username = "deveshsheth1609@gmail.com";// change accordingly
-		final String password = "ugwsqxfriqbeuexq";// change accordingly
+    }
 
-		// Assuming you are sending email through relay.jangosmtp.net
-		String host = "smtp.gmail.com";
+    public void sendOtpForForgetPassword(UserBean userBean) {
+        String to = userBean.getEmail();// change accordingly
 
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", "587");
+        // Sender's email ID needs to be mentioned
+        String from = "deveshsheth1609@gmail.com";// change accordingly
+        final String username = "deveshsheth1609@gmail.com";// change accordingly
+        final String password = "ugwsqxfriqbeuexq";// change accordingly
 
-		// Get the Session object.
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		});
+        // Assuming you are sending email through relay.jangosmtp.net
+        String host = "smtp.gmail.com";
 
-		try {
-			// Create a default MimeMessage object.
-			Message message = new MimeMessage(session);
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
 
-			// Set From: header field of the header.
-			message.setFrom(new InternetAddress(from));
+        // Get the Session object.
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
 
-			// Set To: header field of the header.
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        try {
+            // Create a default MimeMessage object.
+            Message message = new MimeMessage(session);
 
-			// Set Subject: header field
-			message.setSubject("Password Reset OTP");
-			
-			String url = "<a href='https://healthassist-frontend.herokuapp.com/newpassword'>Click Here To Verify</a>";
-			// Now set the actual message
-			message.setContent("Hello " + userBean.getFirstname() + ", <b>" + userBean.getOtp()
-					+ "</b> is your OTP to verify your Identity For Reset Password<br>" + url, "text/html");
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
 
-			// Send message
-			Transport.send(message);
+            // Set To: header field of the header.
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
-			System.out.println("Sent message successfully....");
+            // Set Subject: header field
+            message.setSubject("Password Reset OTP");
 
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void sendWelcomeMail(UserBean userBean) {
-		
-	}
+            String url = "<a href='https://healthassist-frontend.herokuapp.com/newpassword'>Click Here To Verify</a>";
+            // Now set the actual message
+            message.setContent("Hello " + userBean.getFirstname() + ", <b>" + userBean.getOtp()
+                    + "</b> is your OTP to verify your Identity For Reset Password<br>" + url, "text/html");
 
-	public void sendDoctorRegisterMail(DoctorProfileBean doctorProfileBean) {
-		
-	}
+            // Send message
+            Transport.send(message);
 
-	public void sendDoctorWelcomeMail(DoctorProfileBean doctorProfileBean) {
-		
-	}
+            System.out.println("Sent message successfully....");
 
-	public void sendMailForPasswordUpdate(UserBean dbUser) {
-		// TODO Auto-generated method stub
-		
-		String to = dbUser.getEmail();// change accordingly
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
-		// Sender's email ID needs to be mentioned
-		String from = "deveshsheth1609@gmail.com";// change accordingly
-		final String username = "deveshsheth1609@gmail.com";// change accordingly
-		final String password = "ugwsqxfriqbeuexq";// change accordingly
+    public void sendWelcomeMail(UserBean userBean) {
 
-		// Assuming you are sending email through relay.jangosmtp.net
-		String host = "smtp.gmail.com";
+    }
 
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", "587");
+    public void sendDoctorRegisterMail(DoctorProfileBean doctorProfileBean) {
 
-		// Get the Session object.
-		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
-			}
-		});
+    }
 
-		try {
-			// Create a default MimeMessage object.
-			Message message = new MimeMessage(session);
+    public void sendDoctorWelcomeMail(DoctorProfileBean doctorProfileBean) {
 
-			// Set From: header field of the header.
-			message.setFrom(new InternetAddress(from));
+    }
 
-			// Set To: header field of the header.
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+    public void sendMailForPasswordUpdate(UserBean dbUser) {
+        // TODO Auto-generated method stub
 
-			// Set Subject: header field
-			message.setSubject("Password Updated!!!");
+        String to = dbUser.getEmail();// change accordingly
 
-			// Now set the actual message
-			message.setContent("Hello " + dbUser.getFirstname() + ",   Your Password succssfully update.. <br>",
-					"text/html");
+        // Sender's email ID needs to be mentioned
+        String from = "deveshsheth1609@gmail.com";// change accordingly
+        final String username = "deveshsheth1609@gmail.com";// change accordingly
+        final String password = "ugwsqxfriqbeuexq";// change accordingly
 
-			// Send message
-			Transport.send(message);
+        // Assuming you are sending email through relay.jangosmtp.net
+        String host = "smtp.gmail.com";
 
-			System.out.println("Sent message successfully....");
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
 
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		
-	}
+        // Get the Session object.
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            // Create a default MimeMessage object.
+            Message message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+
+            // Set Subject: header field
+            message.setSubject("Password Updated!!!");
+
+            // Now set the actual message
+            message.setContent("Hello " + dbUser.getFirstname() + ",   Your Password succssfully update.. <br>",
+                    "text/html");
+
+            // Send message
+            Transport.send(message);
+
+            System.out.println("Sent message successfully....");
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

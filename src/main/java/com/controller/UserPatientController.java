@@ -14,29 +14,29 @@ import com.dao.UserPatientDao;
 @RestController
 @CrossOrigin
 public class UserPatientController {
-	
-	@Autowired
-	UserPatientDao userpatientDao;
-	
-	@PostMapping("/addUserPatient")
-	public ResponseBean<UserPatientBean> addPatient(@RequestBody UserPatientBean userpatientBean){
-		userpatientDao.addUserPatient(userpatientBean);
-		ResponseBean<UserPatientBean> response = new ResponseBean<>();
-		response.setData(userpatientBean);
-		response.setMsg("User Patient Added successfully...!!");
-		response.setStatus(200);
-		return response;
-		
-	}
-	
-	@PutMapping("/updateUserPatient")
-	public ResponseBean<UserPatientBean> updateUserPatient(@RequestBody UserPatientBean userpatientBean){
-		userpatientDao.updateUserPatient(userpatientBean);
-		ResponseBean<UserPatientBean> response = new ResponseBean<>();
-		response.setData(userpatientBean);
-		response.setMsg("User Patient Update successfully...!!");
-		return response;
-	}
 
-	
+    @Autowired
+    UserPatientDao userpatientDao;
+
+    @PostMapping("/addUserPatient")
+    public ResponseBean<UserPatientBean> addPatient(@RequestBody UserPatientBean userpatientBean) {
+        userpatientDao.addUserPatient(userpatientBean);
+        ResponseBean<UserPatientBean> response = new ResponseBean<>();
+        response.setData(userpatientBean);
+        response.setMsg("User Patient Added successfully...!!");
+        response.setStatus(200);
+        return response;
+
+    }
+
+    @PutMapping("/updateUserPatient")
+    public ResponseBean<UserPatientBean> updateUserPatient(@RequestBody UserPatientBean userpatientBean) {
+        userpatientDao.updateUserPatient(userpatientBean);
+        ResponseBean<UserPatientBean> response = new ResponseBean<>();
+        response.setData(userpatientBean);
+        response.setMsg("User Patient Update successfully...!!");
+        return response;
+    }
+
+
 }

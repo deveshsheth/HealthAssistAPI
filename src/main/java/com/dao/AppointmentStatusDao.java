@@ -9,23 +9,22 @@ import com.bean.AppointmentStatusBean;
 @RestController
 public class AppointmentStatusDao {
 
-	@Autowired
-	JdbcTemplate stmt;
+    @Autowired
+    JdbcTemplate stmt;
 
-	public void addAppStatus(AppointmentStatusBean appstatusBean) {
-		// TODO Auto-generated method stub
-		
-		stmt.update("insert into appointmentstatus(statusname) values(?)",appstatusBean.getStatusname());
-		
-	}
+    public void addAppStatus(AppointmentStatusBean appstatusBean) {
+        // TODO Auto-generated method stub
 
-	public void updateAppStatus(AppointmentStatusBean appstatusBean) {
-		// TODO Auto-generated method stub
-		
-		stmt.update("update appointmentstatus set statusname=? where statusid=?", appstatusBean.getStatusname(),appstatusBean.getStatusid());
-		
-	}
-	
-	
-	
+        stmt.update("insert into appointmentstatus(statusname) values(?)", appstatusBean.getStatusname());
+
+    }
+
+    public void updateAppStatus(AppointmentStatusBean appstatusBean) {
+        // TODO Auto-generated method stub
+
+        stmt.update("update appointmentstatus set statusname=? where statusid=?", appstatusBean.getStatusname(), appstatusBean.getStatusid());
+
+    }
+
+
 }

@@ -4,21 +4,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OtpService {
-	
-	final static int otpLength = 5;
 
-	public String generateOtp() {
-		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
+    final static int otpLength = 5;
 
-		StringBuilder sb = new StringBuilder(otpLength);
+    public String generateOtp() {
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
 
-		for (int i = 0; i < otpLength; i++) {
-			int index = (int) (AlphaNumericString.length() * Math.random());
-			sb.append(AlphaNumericString.charAt(index));
-		}
+        StringBuilder sb = new StringBuilder(otpLength);
 
-		return sb.toString();
+        for (int i = 0; i < otpLength; i++) {
+            int index = (int) (AlphaNumericString.length() * Math.random());
+            sb.append(AlphaNumericString.charAt(index));
+        }
 
-	}
+        return sb.toString();
+
+    }
 
 }

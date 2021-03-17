@@ -12,12 +12,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 public class HealthAssitsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HealthAssitsApplication.class, args);
-	}
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com"))
-				.build();
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(HealthAssitsApplication.class, args);
+    }
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com"))
+                .build();
+    }
 }
