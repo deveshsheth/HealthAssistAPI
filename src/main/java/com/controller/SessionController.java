@@ -33,31 +33,7 @@ public class SessionController {
 	@Autowired
 	MailerService mailerService;
 
-//	@PostMapping("/adminaddpatient")
-//	public ResponseBean<PatientProfileBean> insertUser(@RequestBody PatientProfileBean patientProfileBean) {
-//		ResponseBean<PatientProfileBean> response = new ResponseBean<>();
-//
-//		if (signupDao.getUserByEmail(patientProfileBean.getEmail()) != null) {
-//			response.setMsg("Email Already registered");
-//			response.setStatus(201);
-//		} else {
-//			patientProfileBean.setOtp(OtpService.generateOtp());
-//			mailerService.sendOtpForUserVerification(patientProfileBean);
-// 			patientProfileBean.setRoleid(2);
-//
-//			int userId = signupDao.insertUser(patientProfileBean);
-//			patientProfileBean.setUserId(userId);
-//			patientProfileBean.setPatientname(patientProfileBean.getFirstname());
-//
-//			signupDao.addPatient(patientProfileBean);
-//
-//			response.setData(patientProfileBean);
-//			response.setMsg("patient addedd successfully....!!");
-//			response.setStatus(200);
-//		}
-//
-//		return response;
-//	}
+
 
 	@PostMapping("/Signup")
 	public ResponseBean<UserBean> insertUser(@RequestBody PatientProfileBean userBean) {
@@ -118,7 +94,7 @@ public class SessionController {
 
 	@GetMapping("/getdoctor/{userId}")
 	public ResponseBean<DoctorProfileBean> getDoctor(@PathVariable("userId") int userId, DoctorProfileBean bean) {
-
+		System.out.println(bean.getRegistrationNo());
 		ResponseBean<DoctorProfileBean> responseBean = new ResponseBean<>();
 		bean = signupDao.getDoctorById(userId);
 		responseBean.setData(bean);

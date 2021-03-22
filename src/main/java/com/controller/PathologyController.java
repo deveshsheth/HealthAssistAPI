@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.PathologyBean;
+import com.bean.PharmacyBean;
 import com.bean.ResponseBean;
+import com.bean.UserBean;
 import com.dao.PathologyDao;
 
 @RestController
@@ -31,6 +33,17 @@ public class PathologyController {
         response.setStatus(200);
         return response;
 
+    }
+    
+    @PostMapping("/addAssignUserPathology")
+    public ResponseBean<PathologyBean> addAssignUserPathology(@RequestBody PathologyBean pathologyBean) {
+  
+    	pathologyDao.addAssignUserPathology(pathologyBean);
+        ResponseBean<PathologyBean> response = new ResponseBean<>();
+        response.setData(pathologyBean);
+        response.setMsg("User Pathology Added Successfully...!!");
+        response.setStatus(200);
+        return response;
     }
 
     @GetMapping("/listPathology")
@@ -51,6 +64,17 @@ public class PathologyController {
         pathologyDao.deletePathology(pathologyId);
         response.setMsg("Pathology Deleted Successfully..!!");
         response.setStatus(200);
+        return response;
+    }
+    
+    @GetMapping("/getAssignUserPathology")
+    public ResponseBean<java.util.List<UserBean>> getAssignUserPathology() {
+        ResponseBean<java.util.List<UserBean>> response = new ResponseBean<>();
+
+        java.util.List<UserBean> pathologyBean = pathologyDao.listAssignUserPathology();
+        response.setData(pathologyBean);
+        response.setMsg("User Pathology List Display..!!!!");
+        response.setStatus(201);
         return response;
     }
 

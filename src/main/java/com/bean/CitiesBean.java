@@ -5,8 +5,19 @@ public class CitiesBean {
     int cityid;
     String cityname;
     int stateid;
+    String statename;
+    
+    
 
-    public int getCityid() {
+    public String getStatename() {
+		return statename;
+	}
+
+	public void setStatename(String statename) {
+		this.statename = statename;
+	}
+
+	public int getCityid() {
         return cityid;
     }
 

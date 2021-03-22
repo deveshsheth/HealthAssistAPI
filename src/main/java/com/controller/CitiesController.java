@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.CitiesBean;
+import com.bean.MedicineBean;
 import com.bean.ResponseBean;
 import com.dao.CitiesDao;
 
@@ -51,6 +52,17 @@ public class CitiesController {
         response.setMsg("Deleted Successfully..!!");
         response.setStatus(200);
         return response;
+    }
+    
+    @GetMapping("/getCities/{cityid}")
+    public ResponseBean<CitiesBean> getCities(@PathVariable("cityid") int cityid, CitiesBean bean) {
+        ResponseBean<CitiesBean> responseBean = new ResponseBean<>();
+        bean = citiesDao.getCityById(cityid);
+        responseBean.setData(bean);
+        responseBean.setMsg("Single City Return");
+        responseBean.setStatus(200);
+
+        return responseBean;
     }
 
     @PutMapping("/updateCities")

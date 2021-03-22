@@ -58,4 +58,6 @@ public class userPharmacyDao {
 		stmt.update("update user_pharmacy set isdeleted = 1 where userpharmacyid = ?", pharmacyid);
 	}
 
+
+
 }

@@ -1,6 +1,6 @@
 package com.bean;
 
-public class PharmacyBean {
+public class PharmacyBean  {
 
     int pharmacyid;
     String pharmacyname;
@@ -15,9 +15,20 @@ public class PharmacyBean {
     String cityname;
     int pincode;
     int isdelete;
+    int userid;
+    
+    
 
 
-    public int getIsdelete() {
+    public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public int getIsdelete() {
         return isdelete;
     }
 

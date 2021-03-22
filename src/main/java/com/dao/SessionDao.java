@@ -74,14 +74,13 @@ public class SessionDao {
     	
     	UserBean userBean = new UserBean();
         userBean.setRoleid(2);
-
-        //		doctorProfileBean.setRoleId(3);
         int userId = insertUser(patientBean);
-
         patientBean.setUserId(userId);
+        patientBean.setPatientname(patientBean.getFirstname());
+        
     	
         stmt.update("insert into patientprofile(patientname,gender,phoneno,email,age,profilepic,cityid,pincode,userid) values(?,?,?,?,?,?,?,?,?)",
-                patientBean.getPatientname(), patientBean.getGender(), patientBean.getPhoneno(), 
+                 patientBean.getPatientname(),patientBean.getGender(), patientBean.getPhoneno(), 
                 patientBean.getEmail(),patientBean.getAge(), patientBean.getProfilepic(), 
                  patientBean.getCityid(),patientBean.getPincode(),
                 patientBean.getUserId());
@@ -218,13 +217,12 @@ public class SessionDao {
         int userId = insertUser(patientProfileBean);
 
         patientProfileBean.setUserId(userId);
-      patientProfileBean.setCityid(0);
+//      patientProfileBean.setCityid(0);
     	
         stmt.update("insert into patientprofile(patientname,gender,phoneno,email,age,profilepic,pincode,userid) values(?,?,?,?,?,?,?,?)",
         		patientProfileBean.getPatientname(), patientProfileBean.getGender(), patientProfileBean.getPhoneno(), 
         		patientProfileBean.getEmail(),patientProfileBean.getAge(), patientProfileBean.getProfilepic(), 
-patientProfileBean.getPincode(),
-        		patientProfileBean.getUserId());
+        		patientProfileBean.getPincode(),patientProfileBean.getUserId());
 	}
 
 	

@@ -11,6 +11,7 @@ public class UserBean {
     int status;
     String statusReason;
     String otp;
+    String cityname;
 
     public static final int ACTIVE = 1, PENDING = 2, DISABLE = 3, PAUSE = 4, KYC_DOCTOR = 5;
 
@@ -20,7 +21,23 @@ public class UserBean {
     }
 
 
-    public int getUserId() {
+    
+    
+    public String getCityname() {
+		return cityname;
+	}
+
+
+
+
+	public void setCityname(String cityname) {
+		this.cityname = cityname;
+	}
+
+
+
+
+	public int getUserId() {
         return userId;
     }
 

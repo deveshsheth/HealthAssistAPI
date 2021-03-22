@@ -1,6 +1,6 @@
 package com.bean;
 
-public class userPathologyBean {
+public class userPathologyBean extends PathologyBean {
 
     int userpathologyid;
     int userid;

@@ -23,7 +23,8 @@ public class userPathologyController {
 
     @PostMapping("/adduserPathology")
     public ResponseBean<userPathologyBean> addUserPathology(@RequestBody userPathologyBean userPathologyBean) {
-        userPathologyDao.addUserPathology(userPathologyBean);
+        System.out.println(userPathologyBean.getPathologyid());
+    	userPathologyDao.addUserPathology(userPathologyBean);
         ResponseBean<userPathologyBean> response = new ResponseBean<>();
         response.setData(userPathologyBean);
         response.setMsg("User Pathology Added Successfully...!!");

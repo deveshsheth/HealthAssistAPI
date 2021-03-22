@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.PharmacyBean;
 import com.bean.ResponseBean;
+import com.bean.UserBean;
+import com.bean.userPharmacyBean;
 import com.dao.PharmacyDao;
 
 @RestController
@@ -23,13 +25,24 @@ public class PharmacyController {
 
     @PostMapping("/addPharmacy")
     public ResponseBean<PharmacyBean> addPharmacy(@RequestBody PharmacyBean pharmacyBean) {
-        pharmacyDao.addPathology(pharmacyBean);
+        pharmacyDao.addPharmacy(pharmacyBean);
         ResponseBean<PharmacyBean> response = new ResponseBean<>();
         response.setData(pharmacyBean);
         response.setMsg("Pharmacy Added successfully...!!");
         response.setStatus(200);
         return response;
 
+    }
+    
+    @PostMapping("/addAssignUserPharmacy")
+    public ResponseBean<PharmacyBean> addAssignUserPharmacy(@RequestBody PharmacyBean pharmacyBean) {
+    	System.out.println(pharmacyBean.getCityid());
+    	pharmacyDao.addAssignUserPharmacy(pharmacyBean);
+        ResponseBean<PharmacyBean> response = new ResponseBean<>();
+        response.setData(pharmacyBean);
+        response.setMsg("User Pharmacy Added Successfully...!!");
+        response.setStatus(200);
+        return response;
     }
 
     @GetMapping("/listPharmacy")
@@ -64,6 +77,18 @@ public class PharmacyController {
         responseBean.setStatus(200);
 
         return responseBean;
+    }
+    
+   
+    @GetMapping("/getAssignUserPharmacy")
+    public ResponseBean<java.util.List<UserBean>> getAssignUserPharmacy() {
+        ResponseBean<java.util.List<UserBean>> response = new ResponseBean<>();
+
+        java.util.List<UserBean> pharmacyBean = pharmacyDao.listAssignUserPharmacy();
+        response.setData(pharmacyBean);
+        response.setMsg("User Pharmacy List Display..!!!!");
+        response.setStatus(201);
+        return response;
     }
 
     @PutMapping("/updatePharmacy")

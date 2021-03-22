@@ -32,6 +32,8 @@ public class userPharmacyController {
         return response;
     }
     
+   
+    
     @GetMapping("/listUserPharmacy/{userid}")
     public ResponseBean<java.util.List<userPharmacyBean>> listuserPharmacy(@PathVariable("userid") int userid) {
         ResponseBean<java.util.List<userPharmacyBean>> response = new ResponseBean<>();

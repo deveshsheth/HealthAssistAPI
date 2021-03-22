@@ -15,10 +15,6 @@ public class PatientProfileBean extends UserBean {
     int pincode;
     int userId;
     
-    
-
-
-    
 
 	public int getUserId() {
 		return userId;

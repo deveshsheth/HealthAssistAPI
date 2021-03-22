@@ -15,8 +15,66 @@ public class AppointmentBean {
     String complain;
     Date appointmentdate;
     String appointmenttime;
+    String patientname;
+    String statusname;
+    String firstname;
+    String lastname;
+    String clinicname;
+    String statusreason;
+    
+    
+    
+    
 
-    public int getAppointmentid() {
+    public String getStatusreason() {
+		return statusreason;
+	}
+
+	public void setStatusreason(String statusreason) {
+		this.statusreason = statusreason;
+	}
+
+	public String getClinicname() {
+		return clinicname;
+	}
+
+	public void setClinicname(String clinicname) {
+		this.clinicname = clinicname;
+	}
+
+	public String getPatientname() {
+		return patientname;
+	}
+
+	public void setPatientname(String patientname) {
+		this.patientname = patientname;
+	}
+
+	public String getStatusname() {
+		return statusname;
+	}
+
+	public void setStatusname(String statusname) {
+		this.statusname = statusname;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public int getAppointmentid() {
         return appointmentid;
     }
 

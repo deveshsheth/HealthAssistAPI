@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.bean.DoctClinicBean;
+import com.bean.PathologyBean;
 import com.bean.PatientProfileBean;
 
 
@@ -36,5 +38,50 @@ public class PatientProfileDao {
                 patientBean.getPatientname(), patientBean.getGender(), patientBean.getPhoneno(), patientBean.getEmail(),
                 patientBean.getAge(), patientBean.getProfilepic(), patientBean.getCityid(), patientBean.getStateid(), patientBean.getPincode(), patientBean.getPatientid());
     }
+
+	public PatientProfileBean getPatientById(int userId) {
+		// TODO Auto-generated method stub
+		PatientProfileBean bean = null;
+	        try {
+	            bean = stmt.queryForObject("select * from patientprofile where userid=?", new Object[]{userId},
+	                    BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+	        return bean;
+	}
+
+	public void addPatientProfile(PatientProfileBean patientBean) {
+		// TODO Auto-generated method stub
+		stmt.update("insert into patientprofile(patientname,gender,phoneno,email,age,profilepic,cityid,pincode,userid) values(?,?,?,?,?,?,?,?,?)",
+                patientBean.getPatientname(),patientBean.getGender(), patientBean.getPhoneno(), 
+               patientBean.getEmail(),patientBean.getAge(), patientBean.getProfilepic(), 
+               patientBean.getCityid(),
+                patientBean.getPincode(),
+               patientBean.getUserId());
+		
+	}
+
+	public PatientProfileBean getPatientProfileById(int userId) {
+		// TODO Auto-generated method stub
+		PatientProfileBean bean = null;
+        try {
+        	System.out.println("this is patient profile userid "+userId);
+            bean = stmt.queryForObject("select *,cities.cityname from patientprofile as p join cities using(cityid) where p.cityid = cityid and userid=?", new Object[]{userId},
+                    BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            System.out.println("getpatientprofile.....?????");
+        }
+        return bean;
+	}
+
+	public List<PatientProfileBean> listUserPatient(int userid) {
+		// TODO Auto-generated method stub
+		 java.util.List<PatientProfileBean> userPatientBean = stmt.query("select pp.*,up.userid from patientprofile as pp,users as up where pp.userid = up.userid and pp.isdeleted =0  and up.userid= ?", new Object[]{userid}, BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
+	     return userPatientBean;
+	}
 
 }

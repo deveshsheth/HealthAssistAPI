@@ -25,7 +25,7 @@ public class ClinicDao {
 
     public List<ClinicBean> listClinic() {
         // TODO Auto-generated method stub
-        java.util.List<ClinicBean> clinicBean = stmt.query("select *,cities.cityname from clinic as c join cities using(cityid) where c.cityid = cityid and isdeleted =0", BeanPropertyRowMapper.newInstance(ClinicBean.class));
+        java.util.List<ClinicBean> clinicBean = stmt.query("select *,cities.cityname from clinic as c join cities using(cityid) where c.cityid = cityid and c.isdeleted =0", BeanPropertyRowMapper.newInstance(ClinicBean.class));
         return clinicBean;
     }
 

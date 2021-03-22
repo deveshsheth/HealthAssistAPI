@@ -18,6 +18,7 @@ public class userPathologyDao {
 
     public void addUserPathology(userPathologyBean userPathologyBean) {
         // TODO Auto-generated method stub
+    	
         stmt.update("insert into user_pathology(userid,pathologyid) values(?,?)",
                 userPathologyBean.getUserid(), userPathologyBean.getPathologyid());
     }
