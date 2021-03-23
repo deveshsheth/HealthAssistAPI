@@ -21,16 +21,16 @@ public class PrescriptionMedicineController {
 	@Autowired
 	PrescriptionMedicineDao prescriptionmedicineDao;
 	
-	@PostMapping("/addPrescriptionMedicine")
-    public ResponseBean<PrescriptionMedicineBean> addPrescriptionMedicine(@RequestBody PrescriptionMedicineBean prescriptionmedicineBean) {
-		prescriptionmedicineDao.addPrescriptionMedicine(prescriptionmedicineBean);
-        ResponseBean<PrescriptionMedicineBean> response = new ResponseBean<>();
-        response.setData(prescriptionmedicineBean);
-        response.setMsg("Prescription Medicine Added...!!");
-        response.setStatus(200);
-        return response;
-
-    }
+//	@PostMapping("/addPrescriptionMedicine")
+//    public ResponseBean<PrescriptionMedicineBean> addPrescriptionMedicine(@RequestBody PrescriptionMedicineBean prescriptionmedicineBean) {
+//		prescriptionmedicineDao.addPrescriptionMedicine(prescriptionmedicineBean);
+//        ResponseBean<PrescriptionMedicineBean> response = new ResponseBean<>();
+//        response.setData(prescriptionmedicineBean);
+//        response.setMsg("Prescription Medicine Added...!!");
+//        response.setStatus(200);
+//        return response;
+//
+//    }
 
     @GetMapping("/listPrescriptionMedicine")
     public ResponseBean<java.util.List<PrescriptionMedicineBean>> listPrescriptionMedicine() {

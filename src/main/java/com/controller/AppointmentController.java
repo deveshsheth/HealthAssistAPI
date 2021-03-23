@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.AppointmentBean;
+import com.bean.DiseaseBean;
 import com.bean.ResponseBean;
 import com.dao.AppointmentDao;
 
@@ -28,8 +29,6 @@ public class AppointmentController {
         //appointmentBean.setAppointmentdate(new Date());
         appointmentBean.setAppcreatedate(new Date());
         System.out.println(appointmentBean.getDoctorid());
-        System.out.println(appointmentBean.getAppcreatedate());
-        System.out.println(appointmentBean.getAppointmentdate());
         appointmentDao.addAppointment(appointmentBean);
         ResponseBean<AppointmentBean> response = new ResponseBean<>();
         response.setData(appointmentBean);
@@ -37,6 +36,18 @@ public class AppointmentController {
         response.setStatus(200);
         return response;
 
+    }
+    
+    @GetMapping("/getappointmentid/{appointmentid}")
+    public ResponseBean<AppointmentBean> getUser(@PathVariable("appointmentid") int appointmentid, AppointmentBean bean) {
+
+        ResponseBean<AppointmentBean> responseBean = new ResponseBean<>();
+        bean = appointmentDao.getAppointmentById(appointmentid);
+        responseBean.setData(bean);
+        responseBean.setMsg("Single Appointment Return");
+        responseBean.setStatus(200);
+
+        return responseBean;
     }
 
     @GetMapping("/listappointment/{userid}")
@@ -50,11 +61,11 @@ public class AppointmentController {
         return response;
     }
     
-    @GetMapping("/listAppointmentForDoctor/{appointmentid}")
-    public ResponseBean<java.util.List<AppointmentBean>> listAppointmentForDoctor(@PathVariable("appointmentid") int appointmentid) {
+    @GetMapping("/listAppointmentForDoctor/{userid}")
+    public ResponseBean<java.util.List<AppointmentBean>> listAppointmentForDoctor(@PathVariable("userid") int userid) {
         ResponseBean<java.util.List<AppointmentBean>> response = new ResponseBean<>();
-        System.out.println(appointmentid);
-        java.util.List<AppointmentBean> appointmentBean = appointmentDao.listAppointmentForDoctor(appointmentid);
+        System.out.println("Appointment ID "+userid);
+        java.util.List<AppointmentBean> appointmentBean = appointmentDao.listAppointmentForDoctor(userid);
         response.setData(appointmentBean);
         response.setMsg("Appointment List Display..!!!!");
         response.setStatus(201);

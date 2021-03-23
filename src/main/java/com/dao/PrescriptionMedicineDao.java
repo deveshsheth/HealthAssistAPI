@@ -16,13 +16,13 @@ public class PrescriptionMedicineDao {
 	@Autowired
 	JdbcTemplate stmt;
 	
-	public void addPrescriptionMedicine(PrescriptionMedicineBean prescriptionmedicineBean) {
-		// TODO Auto-generated method stub
-		stmt.update("insert into prescriptionmedicine(prescriptionid,medicineid,frequency,duration,instructions)", 
-				prescriptionmedicineBean.getPrescriptionid(),prescriptionmedicineBean.getMedicineid(),
-				prescriptionmedicineBean.getFrequency(),prescriptionmedicineBean.getDuration(),
-				prescriptionmedicineBean.getInstructions());
-	}
+//	public void addPrescriptionMedicine(PrescriptionMedicineBean prescriptionmedicineBean) {
+//		// TODO Auto-generated method stub
+//		stmt.update("insert into prescriptionmedicine(prescriptionid,medicineid,frequency,duration,instructions) values(?,?,?,?,?)", 
+//				prescriptionmedicineBean.getPrescriptionid(),prescriptionmedicineBean.getMedicineid(),
+//				prescriptionmedicineBean.getFrequency(),prescriptionmedicineBean.getDuration(),
+//				prescriptionmedicineBean.getInstructions());
+//	}
 
 	public List<PrescriptionMedicineBean> listPrescriptionMedicine() {
 		// TODO Auto-generated method stub

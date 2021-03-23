@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.PrescriptionBean;
+import com.bean.PrescriptionMedicineBean;
 import com.bean.ResponseBean;
 import com.dao.PrescriptionDao;
 
@@ -35,6 +36,17 @@ public class PrescriptionController {
 
 		return responseBean;
 	}
+	
+	@PostMapping("/addPrescriptionMedicine")
+    public ResponseBean<PrescriptionBean> addPrescriptionMedicine(@RequestBody PrescriptionBean prescriptionBean) {
+		prescriptionDao.addPrescriptionMedicine(prescriptionBean);
+        ResponseBean<PrescriptionBean> response = new ResponseBean<>();
+        response.setData(prescriptionBean);
+        response.setMsg("Prescription Medicine Added...!!");
+        response.setStatus(200);
+        return response;
+
+    }
 
 	@GetMapping("/listPrescription")
 	public ResponseBean<List<PrescriptionBean>> listPrescription() {

@@ -1,36 +1,70 @@
 package com.bean;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class PrescriptionBean {
 	
 	int prescriptionid;
-	int patientProfileid;
-	int doctorProfileid;
+	int patientprofileid;
+	int doctorprofileid;
 	int appointmentid;
 	String description;
 	Date prescriptiondate;
 	String generaladvice;
 	String followupcomment;
+	int medicineid;
+	String frequency;
+	String duration;
+	String instructions;
 	
 	
+	
+	
+	
+	public int getMedicineid() {
+		return medicineid;
+	}
+	public void setMedicineid(int medicineid) {
+		this.medicineid = medicineid;
+	}
+	public String getFrequency() {
+		return frequency;
+	}
+	public void setFrequency(String frequency) {
+		this.frequency = frequency;
+	}
+	public String getDuration() {
+		return duration;
+	}
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+
+
+	public String getInstructions() {
+		return instructions;
+	}
+	public void setInstructions(String instructions) {
+		this.instructions = instructions;
+	}
 	public int getPrescriptionid() {
 		return prescriptionid;
 	}
 	public void setPrescriptionid(int prescriptionid) {
 		this.prescriptionid = prescriptionid;
 	}
-	public int getPatientProfileid() {
-		return patientProfileid;
+	
+	public int getPatientprofileid() {
+		return patientprofileid;
 	}
-	public void setPatientProfileid(int patientProfileid) {
-		this.patientProfileid = patientProfileid;
+	public void setPatientprofileid(int patientprofileid) {
+		this.patientprofileid = patientprofileid;
 	}
-	public int getDoctorProfileid() {
-		return doctorProfileid;
+	public int getDoctorprofileid() {
+		return doctorprofileid;
 	}
-	public void setDoctorProfileid(int doctorProfileid) {
-		this.doctorProfileid = doctorProfileid;
+	public void setDoctorprofileid(int doctorprofileid) {
+		this.doctorprofileid = doctorprofileid;
 	}
 	public int getAppointmentid() {
 		return appointmentid;

@@ -73,7 +73,7 @@ public class PatientProfileDao {
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
-            System.out.println("getpatientprofile.....?????");
+     
         }
         return bean;
 	}

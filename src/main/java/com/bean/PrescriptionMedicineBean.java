@@ -1,6 +1,6 @@
 package com.bean;
 
-public class PrescriptionMedicineBean {
+public class PrescriptionMedicineBean extends PrescriptionBean {
 	
 	int prescriptionmedicineid;
 	int prescriptionid;

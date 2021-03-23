@@ -24,7 +24,7 @@ public class AppointmentDiseaseDao {
 
 	public List<AppointmentDiseaseBean> listAppointmentDisease() {
 		// TODO Auto-generated method stub
-		List<AppointmentDiseaseBean> appointmentDiseaseBean = stmt.query("select * from appointmentdisease where isdeleted=0",
+		List<AppointmentDiseaseBean> appointmentDiseaseBean = stmt.query("select *,disease.diseasename from appointmentdisease as ad join disease using(diseaseid) where ad.diseaseid = diseaseid and ad.isdeleted=0",
 				BeanPropertyRowMapper.newInstance(AppointmentDiseaseBean.class));
 		return appointmentDiseaseBean;
 	}

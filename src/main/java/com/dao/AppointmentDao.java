@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.AppointmentBean;
 
+
 @RestController
 public class AppointmentDao {
 
@@ -17,14 +18,16 @@ public class AppointmentDao {
 
     public void addAppointment(AppointmentBean appointmentBean) {
         // TODO Auto-generated method stub
-        stmt.update("insert into appointment(patientid,doctorid,statusid,appcreatedate,comment,clinicid,reference,complain,appointmentdate,appointmenttime) values (?,?,?,?,?,?,?,?,?,?)", appointmentBean.getPatientid(),
-                appointmentBean.getDoctorid(), appointmentBean.getStatusid(), appointmentBean.getAppcreatedate(), appointmentBean.getComment(),
+    	appointmentBean.setStatusid(4);
+        stmt.update("insert into appointment(patientid,doctorid,statusid,appcreatedate,comment,clinicid,reference,complain,appointmentdate,appointmenttime) values (?,?,?,?,?,?,?,?,?,?)", 
+        		appointmentBean.getPatientid(),
+        		appointmentBean.getDoctorid(),appointmentBean.getStatusid() ,appointmentBean.getAppcreatedate(), appointmentBean.getComment(),
                 appointmentBean.getClinicid(), appointmentBean.getReference(), appointmentBean.getComplain(), appointmentBean.getAppointmentdate(), appointmentBean.getAppointmenttime());
     }
 
     public List<AppointmentBean> listAppointment(int userid) {
         // TODO Auto-generated method stub
-        java.util.List<AppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,u.*,dp.*,cli.* from patientprofile as p,clinic as cli,doctorprofile as dp,users as u,appointment as a,appointmentstatus as s where a.patientid = p.patientid and a.clinicid = cli.clinicid and a.statusid = s.statusid and u.userid = dp.userid and u.userid = ?"
+        java.util.List<AppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,u.*,dp.*,cli.* from patientprofile as p,clinic as cli,doctorprofile as dp,users as u,appointment as a,appointmentstatus as s where a.patientid = p.patientid and a.clinicid = cli.clinicid and a.statusid = s.statusid and u.userid = a.doctorid and a.doctorid = dp.userid  and u.userid = ?"
         		+ "", new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
         return appointmentBean;
     }
@@ -53,11 +56,24 @@ public class AppointmentDao {
         stmt.update("update appointment set statusid=?,appointmentdate=?,appointmenttime=? where appointmentid=?", appointmentBean.getStatusid(), appointmentBean.getAppointmentdate(), appointmentBean.getAppointmenttime(), appointmentBean.getAppointmentid());
     }
 
-	public List<AppointmentBean> listAppointmentForDoctor(int appointmentid) {
+	public List<AppointmentBean> listAppointmentForDoctor(int userid) {
 		// TODO Auto-generated method stub
-		java.util.List<AppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,u.*,dp.*,cli.* from patientprofile as p,clinic as cli,doctorprofile as dp,users as u,appointment as a,appointmentstatus as s where a.patientid = p.patientid and a.clinicid = cli.clinicid and a.statusid = s.statusid and u.userid = dp.userid and u.userid = ?"
-        		+ "", new Object[] {appointmentid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,dp.*,cli.* from patientprofile as p,clinic as cli,users as u,doctorprofile as dp,appointment as a,appointmentstatus as s where a.patientid = p.patientid and u.userid = dp.userid and a.clinicid = cli.clinicid and a.statusid = s.statusid and dp.userid = ?"
+        		, new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
         return appointmentBean;
+	}
+
+	public AppointmentBean getAppointmentById(int appointmentid) {
+		// TODO Auto-generated method stub
+		AppointmentBean bean = null;
+        try {
+            bean = stmt.queryForObject("select * from appointment where appointmentid=?", new Object[]{appointmentid},
+                    BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+		return bean;
 	}
 
 }

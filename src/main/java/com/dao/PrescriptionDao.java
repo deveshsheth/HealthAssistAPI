@@ -1,10 +1,16 @@
 package com.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.bean.PrescriptionBean;
@@ -14,14 +20,45 @@ public class PrescriptionDao {
 	@Autowired
 	JdbcTemplate stmt;
 
-	public void addPrescription(PrescriptionBean prescriptionBean) {
+	public int addPrescription(PrescriptionBean prescriptionBean) {
 		// TODO Auto-generated method stub
-		stmt.update(
-				"insert into prescription(patientprofileid,doctorprofileid,appointmentid,description,prescriptiondate,generaladvice,followupcomment) values (?,?,?,?,?,?,?)",
-				prescriptionBean.getPatientProfileid(), prescriptionBean.getDoctorProfileid(),
-				prescriptionBean.getAppointmentid(), prescriptionBean.getDescription(),
-				prescriptionBean.getPrescriptiondate(), prescriptionBean.getGeneraladvice(),
-				prescriptionBean.getFollowupcomment());
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+    	String insertSql = "insert into prescription(patientprofileid,doctorprofileid,appointmentid,description,prescriptiondate,generaladvice,followupcomment) values (?,?,?,?,?,?,?)";
+    	
+    	
+    	stmt.update(new PreparedStatementCreator() {
+
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+
+                PreparedStatement pstmt = con.prepareStatement(insertSql, java.sql.Statement.RETURN_GENERATED_KEYS);
+                pstmt.setInt(1, prescriptionBean.getPatientprofileid());
+                pstmt.setInt(2, prescriptionBean.getDoctorprofileid());
+                pstmt.setInt(3, prescriptionBean.getAppointmentid());
+                pstmt.setString(4, prescriptionBean.getDescription());
+                pstmt.setDate(5, prescriptionBean.getPrescriptiondate());
+                pstmt.setString(6, prescriptionBean.getGeneraladvice());
+                pstmt.setString(7, prescriptionBean.getFollowupcomment());
+                
+                return pstmt;
+            }
+        }, keyHolder);
+    	int prescriptionid = (Integer) keyHolder.getKeys().get("prescriptionid");
+    	prescriptionBean.setPrescriptionid(prescriptionid);
+        return prescriptionBean.getPrescriptionid();
+		
+	}
+	
+	public void addPrescriptionMedicine(PrescriptionBean prescriptionBean) {
+		// TODO Auto-generated method stub
+		int prescriptionid = addPrescription(prescriptionBean);
+
+        prescriptionBean.setPrescriptionid(prescriptionid);
+		stmt.update("insert into prescriptionmedicine(prescriptionid,medicineid,frequency,duration,instructions) values(?,?,?,?,?)", 
+				prescriptionBean.getPrescriptionid(),prescriptionBean.getMedicineid(),
+				prescriptionBean.getFrequency(),prescriptionBean.getDuration(),
+				prescriptionBean.getInstructions());
+		
 	}
 
 	public List<PrescriptionBean> listPrescription() {
@@ -49,7 +86,7 @@ public class PrescriptionDao {
 		// TODO Auto-generated method stub
 		stmt.update(
 				"update prescription set patientprofileid = ?,doctorprofileid = ?,appointmentid = ?,description = ?,prescriptiondate = ?,generaladvice = ?,followupcomment = ? where prescriptionid = ?",
-				prescriptionBean.getPatientProfileid(), prescriptionBean.getDoctorProfileid(),
+				prescriptionBean.getPatientprofileid(), prescriptionBean.getDoctorprofileid(),
 				prescriptionBean.getAppointmentid(), prescriptionBean.getDescription(),
 				prescriptionBean.getPrescriptiondate(), prescriptionBean.getGeneraladvice(),
 				prescriptionBean.getFollowupcomment(), prescriptionBean.getPrescriptiondate());
@@ -59,6 +96,8 @@ public class PrescriptionDao {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 	
 	
 	
