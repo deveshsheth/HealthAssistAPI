@@ -67,7 +67,7 @@ public class AppointmentDao {
 		// TODO Auto-generated method stub
 		AppointmentBean bean = null;
         try {
-            bean = stmt.queryForObject("select * from appointment where appointmentid=?", new Object[]{appointmentid},
+            bean = stmt.queryForObject("select ap.*,pp.*,cli.* from appointment as ap,clinic as cli,patientprofile as pp where  ap.patientid=pp.patientid and ap.clinicid = cli.clinicid and  ap.appointmentid=?", new Object[]{appointmentid},
                     BeanPropertyRowMapper.newInstance(AppointmentBean.class));
         } catch (Exception e) {
             // TODO: handle exception

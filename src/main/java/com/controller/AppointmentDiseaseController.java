@@ -37,9 +37,9 @@ public class AppointmentDiseaseController {
 		return responseBean;
 	}
 	
-	@GetMapping("/listAppointmentDisease")
-	public ResponseBean<List<AppointmentDiseaseBean>> listAppointmentDisease(){
-		List<AppointmentDiseaseBean> appointmentDiseaseBean = appointmentdiseaseDao.listAppointmentDisease();
+	@GetMapping("/listAppointmentDisease/{appointmentid}")
+	public ResponseBean<List<AppointmentDiseaseBean>> listAppointmentDisease(@PathVariable("appointmentid") int appointmentid){
+		List<AppointmentDiseaseBean> appointmentDiseaseBean = appointmentdiseaseDao.listAppointmentDisease(appointmentid);
 		
 		ResponseBean<List<AppointmentDiseaseBean>> responseBean = new ResponseBean<>();
 	

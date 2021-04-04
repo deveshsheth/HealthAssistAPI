@@ -22,10 +22,10 @@ public class AppointmentDiseaseDao {
 				appointmentDiseaseBean.getAppointmentid(),appointmentDiseaseBean.getDiseaseid(),appointmentDiseaseBean.getPatientprofileid());
 	}
 
-	public List<AppointmentDiseaseBean> listAppointmentDisease() {
+	public List<AppointmentDiseaseBean> listAppointmentDisease(int appointmentid) {
 		// TODO Auto-generated method stub
-		List<AppointmentDiseaseBean> appointmentDiseaseBean = stmt.query("select *,disease.diseasename from appointmentdisease as ad join disease using(diseaseid) where ad.diseaseid = diseaseid and ad.isdeleted=0",
-				BeanPropertyRowMapper.newInstance(AppointmentDiseaseBean.class));
+		List<AppointmentDiseaseBean> appointmentDiseaseBean = stmt.query("select ap.*,ad.*,d.* from appointmentdisease as ad,appointment as ap,disease as d join disease using(diseaseid) where ad.diseaseid = d.diseaseid and ad.appointmentid = ap.appointmentid and ad.isdeleted=0 and ap.appointmentid = ?",
+				new Object[] {appointmentid},BeanPropertyRowMapper.newInstance(AppointmentDiseaseBean.class));
 		return appointmentDiseaseBean;
 	}
 

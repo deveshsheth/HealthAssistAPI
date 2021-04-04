@@ -68,7 +68,7 @@ public class PatientProfileDao {
 		PatientProfileBean bean = null;
         try {
         	System.out.println("this is patient profile userid "+userId);
-            bean = stmt.queryForObject("select *,cities.cityname from patientprofile as p join cities using(cityid) where p.cityid = cityid and userid=?", new Object[]{userId},
+            bean = stmt.queryForObject("select *,cities.cityname from patientprofile as p join cities using(cityid) where p.cityid = cityid and userid=? limit 1", new Object[]{userId},
                     BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
         } catch (Exception e) {
             // TODO: handle exception
@@ -80,7 +80,7 @@ public class PatientProfileDao {
 
 	public List<PatientProfileBean> listUserPatient(int userid) {
 		// TODO Auto-generated method stub
-		 java.util.List<PatientProfileBean> userPatientBean = stmt.query("select pp.*,up.userid from patientprofile as pp,users as up where pp.userid = up.userid and pp.isdeleted =0  and up.userid= ?", new Object[]{userid}, BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
+		 java.util.List<PatientProfileBean> userPatientBean = stmt.query("select pp.*,up.userid from patientprofile as pp,users as up where pp.userid = up.userid and pp.isdeleted =0  and up.userid= ? ", new Object[]{userid}, BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
 	     return userPatientBean;
 	}
 
