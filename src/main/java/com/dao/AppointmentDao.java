@@ -76,4 +76,11 @@ public class AppointmentDao {
 		return bean;
 	}
 
+	public List<AppointmentBean> viewPatientAppointment(int userid) {
+		// TODO Auto-generated method stub
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,u.*,cli.* from patientprofile as p,clinic as cli,users as u,appointment as a,appointmentstatus as s where a.patientid = p.patientid and a.clinicid = cli.clinicid and a.statusid = s.statusid and  u.userid = ?"
+        		, new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+		return appointmentBean;
+	}
+
 }

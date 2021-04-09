@@ -25,7 +25,7 @@ public class AppointmentController {
     AppointmentDao appointmentDao;
 
     @PostMapping("/addappointment")
-    public ResponseBean<AppointmentBean> addclinic(@RequestBody AppointmentBean appointmentBean) {
+    public ResponseBean<AppointmentBean> addAppointment(@RequestBody AppointmentBean appointmentBean) {
         //appointmentBean.setAppointmentdate(new Date());
         appointmentBean.setAppcreatedate(new Date());
         System.out.println(appointmentBean.getDoctorid());
@@ -55,6 +55,17 @@ public class AppointmentController {
         ResponseBean<java.util.List<AppointmentBean>> response = new ResponseBean<>();
         System.out.println(userid);
         java.util.List<AppointmentBean> appointmentBean = appointmentDao.listAppointment(userid);
+        response.setData(appointmentBean);
+        response.setMsg("Appointment List Display..!!!!");
+        response.setStatus(201);
+        return response;
+    }
+    
+    @GetMapping("/viewPatientAppointment/{userid}")
+    public ResponseBean<java.util.List<AppointmentBean>> viewPatientAppointment(@PathVariable("userid") int userid) {
+        ResponseBean<java.util.List<AppointmentBean>> response = new ResponseBean<>();
+        System.out.println(userid);
+        java.util.List<AppointmentBean> appointmentBean = appointmentDao.viewPatientAppointment(userid);
         response.setData(appointmentBean);
         response.setMsg("Appointment List Display..!!!!");
         response.setStatus(201);

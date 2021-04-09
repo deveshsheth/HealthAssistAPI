@@ -30,6 +30,7 @@ public class AppointmentBean {
     
     
     
+    
 
 	public String getEmail() {
 		return email;

@@ -23,7 +23,7 @@ public class PatientProfileController {
     @Autowired
     PatientProfileDao patientDao;
 
-    @PostMapping("/addPatientProfile")
+    @PostMapping("/addFamilyMember")
 	public ResponseBean<PatientProfileBean> addPatient(@RequestBody PatientProfileBean patientBean) {
 
 		patientDao.addPatientProfile(patientBean);
