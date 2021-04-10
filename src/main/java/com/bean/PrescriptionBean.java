@@ -16,11 +16,15 @@ public class PrescriptionBean {
 	String frequency;
 	String duration;
 	String instructions;
+	String medicinename;
 	
 	
-	
-	
-	
+	public String getMedicinename() {
+		return medicinename;
+	}
+	public void setMedicinename(String medicinename) {
+		this.medicinename = medicinename;
+	}
 	public int getMedicineid() {
 		return medicineid;
 	}

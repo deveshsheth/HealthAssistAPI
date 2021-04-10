@@ -40,11 +40,21 @@ public class AppointmentController {
     
     @GetMapping("/getappointmentid/{appointmentid}")
     public ResponseBean<AppointmentBean> getUser(@PathVariable("appointmentid") int appointmentid, AppointmentBean bean) {
-
         ResponseBean<AppointmentBean> responseBean = new ResponseBean<>();
         bean = appointmentDao.getAppointmentById(appointmentid);
         responseBean.setData(bean);
         responseBean.setMsg("Single Appointment Return");
+        responseBean.setStatus(200);
+
+        return responseBean;
+    }
+    
+    @GetMapping("/getPatientDetails/{appointmentid}")
+    public ResponseBean<AppointmentBean> getPatientDetails(@PathVariable("appointmentid") int appointmentid, AppointmentBean bean) {
+        ResponseBean<AppointmentBean> responseBean = new ResponseBean<>();
+        bean = appointmentDao.getPatientDetailsById(appointmentid);
+        responseBean.setData(bean);
+        responseBean.setMsg("Single Patient Details Return");
         responseBean.setStatus(200);
 
         return responseBean;

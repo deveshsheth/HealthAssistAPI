@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bean.AppointmentBean;
 import com.bean.PrescriptionBean;
 import com.bean.PrescriptionMedicineBean;
 import com.bean.ResponseBean;
@@ -48,10 +49,10 @@ public class PrescriptionController {
 
     }
 
-	@GetMapping("/listPrescription")
-	public ResponseBean<List<PrescriptionBean>> listPrescription() {
+	@GetMapping("/listPrescriptionMedicine/{appointmentid}")
+	public ResponseBean<List<PrescriptionBean>> listPrescription(@PathVariable("appointmentid") int appointmentid) {
 
-		List<PrescriptionBean> prescriptionBean = prescriptionDao.listPrescription();
+		List<PrescriptionBean> prescriptionBean = prescriptionDao.listPrescription(appointmentid);
 
 		ResponseBean<List<PrescriptionBean>> responseBean = new ResponseBean<>();
 

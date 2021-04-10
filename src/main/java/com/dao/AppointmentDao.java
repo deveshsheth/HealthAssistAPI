@@ -67,7 +67,20 @@ public class AppointmentDao {
 		// TODO Auto-generated method stub
 		AppointmentBean bean = null;
         try {
-            bean = stmt.queryForObject("select ap.*,pp.*,cli.* from appointment as ap,clinic as cli,patientprofile as pp where  ap.patientid=pp.patientid and ap.clinicid = cli.clinicid and  ap.appointmentid=?", new Object[]{appointmentid},
+            bean = stmt.queryForObject("select ap.*,pp.*,cli.clinicname from appointment as ap,clinic as cli,patientprofile as pp where  ap.patientid=pp.patientid  and ap.clinicid = cli.clinicid and  ap.appointmentid=?", new Object[]{appointmentid},
+                    BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+		return bean;
+	}
+	
+	public AppointmentBean getPatientDetailsById(int appointmentid) {
+		// TODO Auto-generated method stub
+		AppointmentBean bean = null;
+        try {
+            bean = stmt.queryForObject("select ap.*,pp.*,pres.*,cli.clinicname from appointment as ap,prescription as pres,clinic as cli,patientprofile as pp where  ap.patientid=pp.patientid and ap.appointmentid = pres.appointmentid and ap.clinicid = cli.clinicid and  ap.appointmentid=?", new Object[]{appointmentid},
                     BeanPropertyRowMapper.newInstance(AppointmentBean.class));
         } catch (Exception e) {
             // TODO: handle exception
@@ -82,5 +95,7 @@ public class AppointmentDao {
         		, new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
 		return appointmentBean;
 	}
+
+	
 
 }
