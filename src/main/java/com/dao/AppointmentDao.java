@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.AppointmentBean;
+import com.bean.DietUserBean;
 
 
 @RestController
@@ -94,6 +95,19 @@ public class AppointmentDao {
 		java.util.List<AppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,u.*,cli.* from patientprofile as p,clinic as cli,users as u,appointment as a,appointmentstatus as s where a.patientid = p.patientid and a.clinicid = cli.clinicid and a.statusid = s.statusid and  u.userid = ?"
         		, new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
 		return appointmentBean;
+	}
+
+	public void done_Appointment(AppointmentBean appointmentBean) {
+		// TODO Auto-generated method stub
+		
+		stmt.update("update appointment set statusid=? where appointmentid=?", appointmentBean.getStatusid(), appointmentBean.getAppointmentid());
+	}
+
+	public List<AppointmentBean> pastAppointmentList(int patientid) {
+		// TODO Auto-generated method stub
+		List<AppointmentBean> bean = stmt.query("select ap.*,cli.clinicname,pp.*,aps.* from appointment as ap,patientprofile as pp,clinic as cli,appointmentstatus as aps where ap.statusid = aps.statusid and aps.statusid = 6 and ap.patientid = pp.patientid and ap.clinicid = cli.clinicid and pp.patientid = ?",
+				new Object[] {patientid},BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+		return bean;
 	}
 
 	

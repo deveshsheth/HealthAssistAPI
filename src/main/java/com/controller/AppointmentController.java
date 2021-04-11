@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.AppointmentBean;
+import com.bean.DietUserBean;
 import com.bean.DiseaseBean;
 import com.bean.ResponseBean;
 import com.dao.AppointmentDao;
@@ -130,6 +132,28 @@ public class AppointmentController {
         response.setMsg("Appointment Status Updated Successfully..!!");
         return response;
     }
+    
+    @PutMapping("/done_appointment")
+    public ResponseBean<AppointmentBean> done_Appointment(@RequestBody AppointmentBean appointmentBean) {
+        appointmentDao.done_Appointment(appointmentBean);
+        ResponseBean<AppointmentBean> response = new ResponseBean<>();
+        response.setData(appointmentBean);
+        response.setMsg("Details Submited Successfully..!!");
+        return response;
+    }
+    
+    @GetMapping("/pastAppointmentList/{patientid}")
+	public ResponseBean<List<AppointmentBean>> pastAppointmentList(@PathVariable("patientid") int patientid){
+		List<AppointmentBean> Bean = appointmentDao.pastAppointmentList(patientid);
+		
+		ResponseBean<List<AppointmentBean>> responseBean = new ResponseBean<>();
+	
+		responseBean.setData(Bean);	
+		responseBean.setMsg("User Diet List!!");
+		responseBean.setStatus(200);
+		
+		return responseBean;
+	}
 
 
 }
