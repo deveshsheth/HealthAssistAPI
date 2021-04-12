@@ -63,7 +63,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/listappointment/{userid}")
-    public ResponseBean<java.util.List<AppointmentBean>> listClinic(@PathVariable("userid") int userid) {
+    public ResponseBean<java.util.List<AppointmentBean>> listAppointment(@PathVariable("userid") int userid) {
         ResponseBean<java.util.List<AppointmentBean>> response = new ResponseBean<>();
         System.out.println(userid);
         java.util.List<AppointmentBean> appointmentBean = appointmentDao.listAppointment(userid);
@@ -154,6 +154,63 @@ public class AppointmentController {
 		
 		return responseBean;
 	}
+    
+    @GetMapping("/todayAppointment/{userid}")
+    public ResponseBean<java.util.List<AppointmentBean>> todayAppointment(@PathVariable("userid") int userid) {
+        ResponseBean<java.util.List<AppointmentBean>> response = new ResponseBean<>();
+        System.out.println(userid);
+        java.util.List<AppointmentBean> appointmentBean = appointmentDao.todayAppointment(userid);
+        response.setData(appointmentBean);
+        response.setMsg(" Today Appointment Display..!!!!");
+        response.setStatus(201);
+        return response;
+    }
+    
+    @GetMapping("/waitForAcceptAppointment/{userid}")
+    public ResponseBean<java.util.List<AppointmentBean>> waitForAcceptAppointment(@PathVariable("userid") int userid) {
+        ResponseBean<java.util.List<AppointmentBean>> response = new ResponseBean<>();
+        System.out.println(userid);
+        java.util.List<AppointmentBean> appointmentBean = appointmentDao.waitForAcceptAppointment(userid);
+        response.setData(appointmentBean);
+        response.setMsg(" Wait For Accept Appointment Display..!!!!");
+        response.setStatus(201);
+        return response;
+    }
+    
+    @GetMapping("/acceptAppointment/{userid}")
+    public ResponseBean<java.util.List<AppointmentBean>> acceptAppointment(@PathVariable("userid") int userid) {
+        ResponseBean<java.util.List<AppointmentBean>> response = new ResponseBean<>();
+        System.out.println(userid);
+        java.util.List<AppointmentBean> appointmentBean = appointmentDao.acceptAppointment(userid);
+        response.setData(appointmentBean);
+        response.setMsg("Accept Appointment Display..!!!!");
+        response.setStatus(201);
+        return response;
+    }
+    
+    @GetMapping("/rescheduleAppointment/{userid}")
+    public ResponseBean<java.util.List<AppointmentBean>> rescheduleAppointment(@PathVariable("userid") int userid) {
+        ResponseBean<java.util.List<AppointmentBean>> response = new ResponseBean<>();
+        System.out.println(userid);
+        java.util.List<AppointmentBean> appointmentBean = appointmentDao.rescheduleAppointment(userid);
+        response.setData(appointmentBean);
+        response.setMsg("Reschedule Appointment Display..!!!!");
+        response.setStatus(201);
+        return response;
+    }
+    
+    @GetMapping("/doneAppointment/{userid}")
+    public ResponseBean<java.util.List<AppointmentBean>> doneAppointment(@PathVariable("userid") int userid) {
+        ResponseBean<java.util.List<AppointmentBean>> response = new ResponseBean<>();
+        System.out.println(userid);
+        java.util.List<AppointmentBean> appointmentBean = appointmentDao.doneAppointment(userid);
+        response.setData(appointmentBean);
+        response.setMsg("Done Appointment Display..!!!!");
+        response.setStatus(201);
+        return response;
+    }
+    
+   
 
 
 }

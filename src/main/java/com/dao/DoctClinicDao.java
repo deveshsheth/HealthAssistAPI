@@ -57,4 +57,10 @@ public class DoctClinicDao {
         }
         return bean;
     }
+
+	public List<DoctClinicBean> listDoctClinicTiming(int clinicid) {
+		// TODO Auto-generated method stub
+		java.util.List<DoctClinicBean> doctClinicBean = stmt.query("select dc.* from doct_clinic as dc where dc.clinicid = ?", new Object[]{clinicid}, BeanPropertyRowMapper.newInstance(DoctClinicBean.class));
+        return doctClinicBean;
+	}
 }

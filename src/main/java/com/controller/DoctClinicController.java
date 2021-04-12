@@ -37,11 +37,23 @@ public class DoctClinicController {
     @GetMapping("/listDoctClinic/{userid}")
     public ResponseBean<java.util.List<DoctClinicBean>> listDoctClinic(@PathVariable("userid") int userid) {
         ResponseBean<java.util.List<DoctClinicBean>> response = new ResponseBean<>();
-        System.out.println("===>"+userid);
+
         //userid docprofileid
         java.util.List<DoctClinicBean> doctClinicBean = doctclinicdao.listDoctCLinic(userid);
         response.setData(doctClinicBean);
         response.setMsg("Doctor Clinic Display..!!!!");
+        response.setStatus(201);
+        return response;
+    }
+    
+    @GetMapping("/listDoctClinicTiming/{clinicid}")
+    public ResponseBean<java.util.List<DoctClinicBean>> listDoctClinicTiming(@PathVariable("clinicid") int clinicid) {
+        ResponseBean<java.util.List<DoctClinicBean>> response = new ResponseBean<>();
+       
+        //userid docprofileid
+        java.util.List<DoctClinicBean> doctClinicBean = doctclinicdao.listDoctClinicTiming(clinicid);
+        response.setData(doctClinicBean);
+        response.setMsg("Doctor Clinic Timing Display..!!!!");
         response.setStatus(201);
         return response;
     }

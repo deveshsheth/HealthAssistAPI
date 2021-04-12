@@ -110,6 +110,42 @@ public class AppointmentDao {
 		return bean;
 	}
 
+	public List<AppointmentBean> todayAppointment(int userid) {
+		// TODO Auto-generated method stub
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select ap.*,u.*,dp.* from doctorprofile as dp,users as u,appointment as ap where u.userid = ap.doctorid and ap.doctorid = dp.userid and DATE(ap.appcreatedate) = current_date and u.userid = ?"
+        		+ "", new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        return appointmentBean;
+	}
+
+	public List<AppointmentBean> waitForAcceptAppointment(int userid) {
+		// TODO Auto-generated method stub
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select ap.*,u.*,dp.* from doctorprofile as dp,users as u,appointment as ap where u.userid = ap.doctorid and ap.doctorid = dp.userid and ap.statusid = 4 and u.userid = ?"
+        		+ "", new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        return appointmentBean;
+	}
+
+	public List<AppointmentBean> acceptAppointment(int userid) {
+		// TODO Auto-generated method stub
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select ap.*,u.*,dp.* from doctorprofile as dp,users as u,appointment as ap where u.userid = ap.doctorid and ap.doctorid = dp.userid and ap.statusid = 1 and u.userid = ?"
+        		+ "", new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        return appointmentBean;
+	}
+
+	public List<AppointmentBean> rescheduleAppointment(int userid) {
+		// TODO Auto-generated method stub
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select ap.*,u.*,dp.* from doctorprofile as dp,users as u,appointment as ap where u.userid = ap.doctorid and ap.doctorid = dp.userid and ap.statusid = 5 and u.userid = ?"
+        		+ "", new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        return appointmentBean;
+	}
+
+	public List<AppointmentBean> doneAppointment(int userid) {
+		// TODO Auto-generated method stub
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select ap.*,u.*,dp.* from doctorprofile as dp,users as u,appointment as ap where u.userid = ap.doctorid and ap.doctorid = dp.userid and ap.statusid = 6 and u.userid = ?"
+        		+ "", new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        return appointmentBean;
+	}
+
+
 	
 
 }
