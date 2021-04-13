@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bean.PharmacyBean;
 import com.bean.ResponseBean;
 import com.bean.UserBean;
-import com.bean.userPharmacyBean;
 import com.dao.PharmacyDao;
 
 @RestController

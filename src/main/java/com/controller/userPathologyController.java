@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.ResponseBean;
 import com.bean.userPathologyBean;
-import com.bean.userPharmacyBean;
+
 import com.dao.userPathologyDao;
 
 @RestController

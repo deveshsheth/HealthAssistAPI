@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.PathologyBean;
-import com.bean.PharmacyBean;
 import com.bean.ResponseBean;
 import com.bean.UserBean;
 import com.dao.PathologyDao;

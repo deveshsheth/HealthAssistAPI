@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 
 import com.bean.PharmacyBean;
 import com.bean.UserBean;
-import com.bean.userPharmacyBean;
 
 @Repository
 public class PharmacyDao {

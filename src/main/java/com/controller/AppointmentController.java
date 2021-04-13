@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.AppointmentBean;
-import com.bean.DietUserBean;
-import com.bean.DiseaseBean;
 import com.bean.ResponseBean;
 import com.dao.AppointmentDao;
+import com.services.MailerService;
 
 @RestController
 @CrossOrigin
@@ -25,6 +24,9 @@ public class AppointmentController {
 
     @Autowired
     AppointmentDao appointmentDao;
+    
+    @Autowired
+	MailerService mailerService;
 
     @PostMapping("/addappointment")
     public ResponseBean<AppointmentBean> addAppointment(@RequestBody AppointmentBean appointmentBean) {
@@ -76,7 +78,7 @@ public class AppointmentController {
     @GetMapping("/viewPatientAppointment/{userid}")
     public ResponseBean<java.util.List<AppointmentBean>> viewPatientAppointment(@PathVariable("userid") int userid) {
         ResponseBean<java.util.List<AppointmentBean>> response = new ResponseBean<>();
-        System.out.println(userid);
+        
         java.util.List<AppointmentBean> appointmentBean = appointmentDao.viewPatientAppointment(userid);
         response.setData(appointmentBean);
         response.setMsg("Appointment List Display..!!!!");
@@ -113,6 +115,44 @@ public class AppointmentController {
         response.setMsg("Appointment Updated Successfully..!!");
         return response;
     }
+    
+    @PutMapping("/updateRescheduleAppointment")
+    public ResponseBean<AppointmentBean> updateRescheduleAppointment(@RequestBody AppointmentBean appointmentBean) {
+        appointmentDao.updateRescheduleAppointment(appointmentBean);
+        ResponseBean<AppointmentBean> response = new ResponseBean<>();
+        response.setData(appointmentBean);
+        response.setMsg("Appointment Reschedule Successfully..!!");
+        return response;
+    }
+    
+    
+    @GetMapping("/rescheduleReason/{email}/{appointmentid}")
+	public ResponseBean<AppointmentBean> sendOtpForResetPassword(@PathVariable("email") String email,@PathVariable("appointmentid") int appointmentid) {
+		System.out.println("Reschedule Reason call...");
+		
+		AppointmentBean bean = appointmentDao.getRescheduleReasonByEmail(email,appointmentid);
+		
+		ResponseBean<AppointmentBean> responseBean = new ResponseBean<>();
+		
+		responseBean.setData(bean);
+
+		if (bean == null) {
+
+			responseBean.setMsg("Invalid Email Address");
+			responseBean.setStatus(201);
+
+		} else {
+
+			
+			mailerService.sendRescheduleReason(bean);
+
+			responseBean.setMsg("Email sent for Reschedule");
+			responseBean.setStatus(200);
+
+		}
+
+		return responseBean;
+	}
 
 
     @PutMapping("/accept_reject_appointment")

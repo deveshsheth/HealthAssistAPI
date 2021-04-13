@@ -8,7 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.AppointmentBean;
-import com.bean.DietUserBean;
+
+
 
 
 @RestController
@@ -92,7 +93,7 @@ public class AppointmentDao {
 
 	public List<AppointmentBean> viewPatientAppointment(int userid) {
 		// TODO Auto-generated method stub
-		java.util.List<AppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,u.*,cli.* from patientprofile as p,clinic as cli,users as u,appointment as a,appointmentstatus as s where a.patientid = p.patientid and a.clinicid = cli.clinicid and a.statusid = s.statusid and  u.userid = ?"
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,u.*,cli.*,dp.userid,du.firstname,du.lastname from patientprofile as p,users as du, doctorprofile as dp,clinic as cli,users as u,appointment as a,appointmentstatus as s where not s.statusid = 5 and a.doctorid = dp.userid and dp.userid = du.userid and a.patientid = p.patientid and a.clinicid = cli.clinicid and a.statusid = s.statusid and  u.userid = ?"
         		, new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
 		return appointmentBean;
 	}
@@ -133,7 +134,7 @@ public class AppointmentDao {
 
 	public List<AppointmentBean> rescheduleAppointment(int userid) {
 		// TODO Auto-generated method stub
-		java.util.List<AppointmentBean> appointmentBean = stmt.query("select ap.*,u.*,dp.* from doctorprofile as dp,users as u,appointment as ap where u.userid = ap.doctorid and ap.doctorid = dp.userid and ap.statusid = 5 and u.userid = ?"
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select ap.*,u.*,dp.* from doctorprofile as dp,users as u,appointment as ap where u.userid = ap.doctorid and ap.doctorid = dp.userid and ap.statusid = 2 and u.userid = ?"
         		+ "", new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
         return appointmentBean;
 	}
@@ -142,6 +143,27 @@ public class AppointmentDao {
 		// TODO Auto-generated method stub
 		java.util.List<AppointmentBean> appointmentBean = stmt.query("select ap.*,u.*,dp.* from doctorprofile as dp,users as u,appointment as ap where u.userid = ap.doctorid and ap.doctorid = dp.userid and ap.statusid = 6 and u.userid = ?"
         		+ "", new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        return appointmentBean;
+	}
+
+	public void updateRescheduleAppointment(AppointmentBean appointmentBean) {
+		// TODO Auto-generated method stub
+		stmt.update("update appointment set statusreason=? where appointmentid=?", appointmentBean.getStatusreason(), appointmentBean.getAppointmentid());
+		
+	}
+
+	public AppointmentBean getRescheduleReasonByEmail(String email,int appointmentid) {
+		// TODO Auto-generated method stub
+		AppointmentBean appointmentBean = null;
+
+        try {
+        	appointmentBean = stmt.queryForObject("select ap.*,pp.*,dp.*,du.firstname,du.lastname from appointment as ap,users as du,doctorprofile as dp,patientprofile as pp where ap.doctorid = dp.userid and dp.userid = du.userid and ap.patientid = pp.patientid and pp.email=? and ap.appointmentid=?",
+
+                    new Object[]{email,appointmentid}, BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        	
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return appointmentBean;
 	}
 

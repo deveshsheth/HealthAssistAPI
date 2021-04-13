@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.CitiesBean;
-import com.bean.MedicineBean;
 import com.bean.ResponseBean;
 import com.dao.CitiesDao;
 

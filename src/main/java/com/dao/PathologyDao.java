@@ -15,7 +15,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.bean.PathologyBean;
-import com.bean.PharmacyBean;
 import com.bean.UserBean;
 
 

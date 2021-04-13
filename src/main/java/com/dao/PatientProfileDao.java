@@ -7,8 +7,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.bean.DoctClinicBean;
-import com.bean.PathologyBean;
 import com.bean.PatientProfileBean;
 
 
@@ -34,9 +32,10 @@ public class PatientProfileDao {
 
     public void updatePatient(PatientProfileBean patientBean) {
         // TODO Auto-generated method stub
-        stmt.update("update patientprofile set patientname=?,gender=?,phoneno=?,email=?,age=?,profilepic=?,cityid=?,stateid=?,pincode=? where pathologyid=?",
-                patientBean.getPatientname(), patientBean.getGender(), patientBean.getPhoneno(), patientBean.getEmail(),
-                patientBean.getAge(), patientBean.getProfilepic(), patientBean.getCityid(), patientBean.getStateid(), patientBean.getPincode(), patientBean.getPatientid());
+        stmt.update("update patientprofile set patientname=?,gender=?,phoneno=?,email=?,age=?,userid=? where patientid=?",
+        		patientBean.getPatientname(), patientBean.getGender(), patientBean.getPhoneno(), patientBean.getEmail(),
+                patientBean.getAge(),patientBean.getUserId(), patientBean.getPatientid());
+    
     }
 
 	public PatientProfileBean getPatientById(int userId) {
@@ -82,6 +81,20 @@ public class PatientProfileDao {
 		// TODO Auto-generated method stub
 		 java.util.List<PatientProfileBean> userPatientBean = stmt.query("select pp.*,up.userid from patientprofile as pp,users as up where pp.userid = up.userid and pp.isdeleted =0  and up.userid= ? ", new Object[]{userid}, BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
 	     return userPatientBean;
+	}
+
+	public PatientProfileBean getFamilyMember(int patientid) {
+		// TODO Auto-generated method stub
+		PatientProfileBean bean = null;
+        try {
+            bean = stmt.queryForObject("select *,cities.cityname from patientprofile as p join cities using(cityid) where p.cityid = cityid and patientid = ?", new Object[]{patientid},
+                    BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+     
+        }
+        return bean;
 	}
 
 }

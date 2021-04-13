@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bean.userPathologyBean;
-import com.bean.userPharmacyBean;
 
 @Repository
 public class userPathologyDao {
