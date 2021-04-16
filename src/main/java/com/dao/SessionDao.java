@@ -225,6 +225,37 @@ public class SessionDao {
         		patientProfileBean.getPincode(),patientProfileBean.getUserId());
 	}
 
+	public List<DoctorProfileBean> kycDoctor() {
+		// TODO Auto-generated method stub
+		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select u.*,d.*,d.doctorprofileid as docProfileId from doctorprofile as d join users u using(userid) where userid = d.userid and d.isdeleted=0 and u.status=5", BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		return DoctorBean;
+	}
+
+	public List<DoctorProfileBean> activeDoctor() {
+		// TODO Auto-generated method stub
+		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select u.*,d.*,d.doctorprofileid as docProfileId from doctorprofile as d join users u using(userid) where userid = d.userid and d.isdeleted=0 and u.status=1", BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		return DoctorBean;
+	}
+
+	public List<DoctorProfileBean> pendingDoctor() {
+		// TODO Auto-generated method stub
+		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select u.*,d.*,d.doctorprofileid as docProfileId from doctorprofile as d join users u using(userid) where userid = d.userid and d.isdeleted=0 and u.status=2", BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		return DoctorBean;
+	}
+
+	public List<DoctorProfileBean> pauseDoctor() {
+		// TODO Auto-generated method stub
+		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select u.*,d.*,d.doctorprofileid as docProfileId from doctorprofile as d join users u using(userid) where userid = d.userid and d.isdeleted=0 and u.status=4", BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		return DoctorBean;
+	}
+
+	
+	public List<UserBean> searchDoctor(String searchdoctor) {
+		// TODO Auto-generated method stub
+		java.util.List<UserBean> DoctorBean = stmt.query("select * from users where firstname LIKE '%"+searchdoctor+"%", BeanPropertyRowMapper.newInstance(UserBean.class));
+		return DoctorBean;
+	}
+
 	
 
 

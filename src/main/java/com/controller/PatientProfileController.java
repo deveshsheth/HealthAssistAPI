@@ -67,13 +67,21 @@ public class PatientProfileController {
     
     @GetMapping("/getuserPatient/{userId}")
 	public ResponseBean<PatientProfileBean> getUser(@PathVariable("userId") int userId, PatientProfileBean bean) {
-
 		ResponseBean<PatientProfileBean> responseBean = new ResponseBean<>();
 		bean = patientDao.getPatientById(userId);
 		responseBean.setData(bean);
 		responseBean.setMsg("Single User Return");
 		responseBean.setStatus(200);
-
+		return responseBean;
+	}
+    
+    @GetMapping("/getEditUserPatient/{patientid}")
+	public ResponseBean<PatientProfileBean> getEditUserPatient(@PathVariable("patientid") int patientid, PatientProfileBean bean) {
+		ResponseBean<PatientProfileBean> responseBean = new ResponseBean<>();
+		bean = patientDao.getEditUserPatient(patientid);
+		responseBean.setData(bean);
+		responseBean.setMsg("Single User Return");
+		responseBean.setStatus(200);
 		return responseBean;
 	}
     
@@ -102,10 +110,10 @@ public class PatientProfileController {
 		return responseBean;
 	}
     
-    @PutMapping("/updatePatient")
-    public ResponseBean<PatientProfileBean> updatePathology(@RequestBody PatientProfileBean patientBean) {
+    @PutMapping("/updateFamilyMember")
+    public ResponseBean<PatientProfileBean> updateFamilyMember(@RequestBody PatientProfileBean patientBean) {
         System.out.println("Edit Family Memember Email => "+patientBean.getEmail());
-    	patientDao.updatePatient(patientBean);
+    	patientDao.updateFamilyMember(patientBean);
         ResponseBean<PatientProfileBean> response = new ResponseBean<>();
         response.setData(patientBean);
         response.setMsg("Patient Updated Successfully..!!");

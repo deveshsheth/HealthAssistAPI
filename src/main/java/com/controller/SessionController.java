@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.bean.DoctorProfileBean;
 import com.bean.LoginBean;
@@ -103,6 +105,68 @@ public class SessionController {
 
 		return responseBean;
 	}
+	
+	@GetMapping("/kycDoctor")
+	public ResponseBean<java.util.List<DoctorProfileBean>> kycDoctor() {
+		ResponseBean<java.util.List<DoctorProfileBean>> response = new ResponseBean<>();
+
+		java.util.List<DoctorProfileBean> doctorBean = signupDao.kycDoctor();
+		response.setData(doctorBean);
+		response.setMsg("KYC Doctor List Display..!!!!");
+		response.setStatus(201);
+		return response;
+	}
+	
+	@GetMapping("/activeDoctor")
+	public ResponseBean<java.util.List<DoctorProfileBean>> activeDoctor() {
+		ResponseBean<java.util.List<DoctorProfileBean>> response = new ResponseBean<>();
+
+		java.util.List<DoctorProfileBean> doctorBean = signupDao.activeDoctor();
+		response.setData(doctorBean);
+		response.setMsg("Active Doctor List Display..!!!!");
+		response.setStatus(201);
+		return response;
+	}
+	
+	@GetMapping("/pendingDoctor")
+	public ResponseBean<java.util.List<DoctorProfileBean>> pendingDoctor() {
+		ResponseBean<java.util.List<DoctorProfileBean>> response = new ResponseBean<>();
+
+		java.util.List<DoctorProfileBean> doctorBean = signupDao.pendingDoctor();
+		response.setData(doctorBean);
+		response.setMsg("Pending Doctor List Display..!!!!");
+		response.setStatus(201);
+		return response;
+	}
+	
+	
+	@GetMapping("/pauseDoctor")
+	public ResponseBean<java.util.List<DoctorProfileBean>> pauseDoctor() {
+		ResponseBean<java.util.List<DoctorProfileBean>> response = new ResponseBean<>();
+
+		java.util.List<DoctorProfileBean> doctorBean = signupDao.pauseDoctor();
+		response.setData(doctorBean);
+		response.setMsg("Pause Doctor List Display..!!!!");
+		response.setStatus(201);
+		return response;
+	}
+	
+	
+	
+	
+	
+	@GetMapping("/searchDoctor")
+	public ResponseBean<java.util.List<UserBean>> searchDoctor(@RequestParam("firstname") String searchdoctor) {
+		ResponseBean<java.util.List<UserBean>> response = new ResponseBean<>();
+
+		java.util.List<UserBean> doctorBean = signupDao.searchDoctor(searchdoctor);
+		response.setData(doctorBean);
+		response.setMsg("Search Doctor List Display..!!!!");
+		response.setStatus(201);
+		return response;
+	}
+	
+	
 
 	@GetMapping("/getuser/{userId}")
 	public ResponseBean<UserBean> getUser(@PathVariable("userId") int userId, UserBean bean) {

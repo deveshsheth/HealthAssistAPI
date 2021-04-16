@@ -62,4 +62,10 @@ public class DoctClinicDao {
 		java.util.List<DoctClinicBean> doctClinicBean = stmt.query("select dc.* from doct_clinic as dc where dc.clinicid = ?", new Object[]{clinicid}, BeanPropertyRowMapper.newInstance(DoctClinicBean.class));
         return doctClinicBean;
 	}
+
+	public List<DoctClinicBean> countDoctorClinic() {
+		// TODO Auto-generated method stub
+		java.util.List<DoctClinicBean> doctClinicBean = stmt.query("select dc.*,dp.userid,du.firstname,du.lastname from doct_clinic as dc,doctorprofile as dp,users as du where dc.docid = dp.userid and dp.userid = du.userid", BeanPropertyRowMapper.newInstance(DoctClinicBean.class));
+        return doctClinicBean;
+	}
 }

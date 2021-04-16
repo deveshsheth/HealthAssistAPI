@@ -80,7 +80,7 @@ public class ClinicController {
 //	{
 //		ResponseBean<java.util.List<ClinicBean>> response = new ResponseBean<>();
 //		
-//		java.util.List<ClinicBean> clinicBean = clinicDao.searchClinic(searchclinic);
+//	java.util.List<ClinicBean> clinicBean = clinicDao.searchClinic(searchclinic);
 //		response.setData(clinicBean);
 //		response.setMsg("Search Clinic List Display..!!!!");
 //		response.setStatus(201);

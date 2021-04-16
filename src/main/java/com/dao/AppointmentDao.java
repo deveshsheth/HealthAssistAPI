@@ -167,6 +167,40 @@ public class AppointmentDao {
         return appointmentBean;
 	}
 
+	public List<AppointmentBean> doneAppointmentForAllDoctor() {
+		// TODO Auto-generated method stub
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select ap.*,u.*,dp.* from doctorprofile as dp,users as u,appointment as ap where u.userid = ap.doctorid and ap.doctorid = dp.userid and ap.statusid = 6"
+        		+ "",BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        return appointmentBean;
+	}
+
+	public List<AppointmentBean> listAllAppointment() {
+		// TODO Auto-generated method stub
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select ap.*,pp.*,s.*,dp.*,cli.*,du.firstname,du.lastname,du.userid from appointment as ap,patientprofile as pp,appointmentstatus as s,users as du,clinic as cli,doctorprofile as dp where ap.patientid = pp.patientid and ap.doctorid = dp.userid and dp.userid = du.userid and ap.statusid = s.statusid and ap.clinicid = cli.clinicid"
+        		+ "",BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        return appointmentBean;
+	}
+
+	public void updateRejectAppointment(AppointmentBean appointmentBean) {
+		// TODO Auto-generated method stub
+		stmt.update("update appointment set statusreason=? where appointmentid=?", appointmentBean.getStatusreason(), appointmentBean.getAppointmentid());
+	}
+
+	public AppointmentBean getRejectReasonByEmail(String email, int appointmentid) {
+		// TODO Auto-generated method stub
+		AppointmentBean appointmentBean = null;
+
+        try {
+        	appointmentBean = stmt.queryForObject("select ap.*,pp.*,dp.*,du.firstname,du.lastname from appointment as ap,users as du,doctorprofile as dp,patientprofile as pp where ap.doctorid = dp.userid and dp.userid = du.userid and ap.patientid = pp.patientid and pp.email=? and ap.appointmentid=?",
+
+                    new Object[]{email,appointmentid}, BeanPropertyRowMapper.newInstance(AppointmentBean.class));
+        	
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return appointmentBean;
+	}
+
 
 	
 

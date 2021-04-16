@@ -30,7 +30,7 @@ public class PatientProfileDao {
         stmt.update("delete from patientprofile where patientid = ?", patientId);
     }
 
-    public void updatePatient(PatientProfileBean patientBean) {
+    public void updateFamilyMember(PatientProfileBean patientBean) {
         // TODO Auto-generated method stub
         stmt.update("update patientprofile set patientname=?,gender=?,phoneno=?,email=?,age=?,userid=? where patientid=?",
         		patientBean.getPatientname(), patientBean.getGender(), patientBean.getPhoneno(), patientBean.getEmail(),
@@ -88,6 +88,20 @@ public class PatientProfileDao {
 		PatientProfileBean bean = null;
         try {
             bean = stmt.queryForObject("select *,cities.cityname from patientprofile as p join cities using(cityid) where p.cityid = cityid and patientid = ?", new Object[]{patientid},
+                    BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+     
+        }
+        return bean;
+	}
+
+	public PatientProfileBean getEditUserPatient(int patientid) {
+		// TODO Auto-generated method stub
+		PatientProfileBean bean = null;
+        try {
+            bean = stmt.queryForObject("select pp.*,pu.*,cu.cityname from patientprofile as pp,users as pu,cities as cu where pp.userid=pu.userid and pp.cityid = cu.cityid and pp.patientid=?", new Object[]{patientid},
                     BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
         } catch (Exception e) {
             // TODO: handle exception

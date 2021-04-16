@@ -45,6 +45,17 @@ public class DoctClinicController {
         return response;
     }
     
+    @GetMapping("/countDoctorClinic")
+	public ResponseBean<java.util.List<DoctClinicBean>> countDoctorClinic() {
+		ResponseBean<java.util.List<DoctClinicBean>> response = new ResponseBean<>();
+
+		java.util.List<DoctClinicBean> doctClinicBean = doctclinicdao.countDoctorClinic();
+		response.setData(doctClinicBean);
+		response.setMsg("Count Doctor Clinic Display..!!!!");
+		response.setStatus(201);
+		return response;
+	}
+    
     @GetMapping("/listDoctClinicTiming/{clinicid}")
     public ResponseBean<java.util.List<DoctClinicBean>> listDoctClinicTiming(@PathVariable("clinicid") int clinicid) {
         ResponseBean<java.util.List<DoctClinicBean>> response = new ResponseBean<>();
