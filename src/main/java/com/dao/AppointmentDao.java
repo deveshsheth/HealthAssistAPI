@@ -93,7 +93,7 @@ public class AppointmentDao {
 
 	public List<AppointmentBean> viewPatientAppointment(int userid) {
 		// TODO Auto-generated method stub
-		java.util.List<AppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,u.*,cli.*,dp.userid,du.firstname,du.lastname from patientprofile as p,users as du, doctorprofile as dp,clinic as cli,users as u,appointment as a,appointmentstatus as s where not s.statusid = 5 and a.doctorid = dp.userid and dp.userid = du.userid and a.patientid = p.patientid and a.clinicid = cli.clinicid and a.statusid = s.statusid and  u.userid = ?"
+		java.util.List<AppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,u.*,cli.*,dp.userid,du.firstname,du.lastname from patientprofile as p,users as du, doctorprofile as dp,clinic as cli,users as u,appointment as a,appointmentstatus as s where not s.statusid = 5 and a.doctorid = dp.userid and dp.userid = du.userid and a.patientid = p.patientid and a.clinicid = cli.clinicid and a.statusid = s.statusid and p.userid = u.userid and u.userid = ?"
         		, new Object[] {userid} ,BeanPropertyRowMapper.newInstance(AppointmentBean.class));
 		return appointmentBean;
 	}
